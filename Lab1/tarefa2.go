@@ -11,7 +11,7 @@ import (
 )
 
 // Variáveis globais
-var logicalClock int
+//var logicalClock int
 var myID int
 var myPort string
 
@@ -21,6 +21,12 @@ var AllConn []*net.UDPConn
 var ServConn *net.UDPConn
 
 var ch = make(chan int)
+
+type ClockStruct struct {
+	id int
+	clocks []int
+}
+var logicalClock ClockStruct
 
 func max(x int, y int) int {
 	if x >= y {
@@ -64,7 +70,7 @@ func doServerJob() {
 	PrintError(err)
 
 	fmt.Println("Received", otherLogicalClock)
-	logicalClock = max(otherLogicalClock, logicalClock) + 1
+	logicalClock.clocks[logicalClock.id-1] = max(otherLogicalClock, logicalClock.clocks[logicalClock.id-1]) + 1
 	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 }
 
@@ -86,11 +92,18 @@ func initConnections() {
 	nPorts = len(os.Args) - 2
 
 	// my process
-	logicalClock = 0
 	auxMyID, err := strconv.Atoi(os.Args[1])
 	PrintError(err)
 	myID = auxMyID
 	myPort = os.Args[myID+1]
+	var clocks []int
+	for i := 0; i < nPorts; i++ {
+		clocks = append(clocks, 0)
+	}
+	logicalClock = ClockStruct{
+		myID,
+		clocks,
+	}
 
 	// Server
 	ServerAddr, err := net.ResolveUDPAddr("udp", myPort)
@@ -132,13 +145,13 @@ func main() {
 		select {
 		case processID, valid := <-ch:
 			if valid {
+				logicalClock.clocks[logicalClock.id-1] = logicalClock.clocks[logicalClock.id-1] + 1
 				//Client
 				if processID == myID {
-					logicalClock = logicalClock + 1
 					fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 				} else {
 					fmt.Printf("logicalClock enviado: %d \n", logicalClock)
-					go doClientJob(processID, logicalClock)
+					go doClientJob(processID, logicalClock.clocks[logicalClock.id-1])
 				}
 
 			} else {

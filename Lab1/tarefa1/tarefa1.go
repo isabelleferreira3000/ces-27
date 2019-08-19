@@ -1,4 +1,4 @@
-package main
+package tarefa1
 
 import (
 	"bufio"
@@ -137,6 +137,7 @@ func main() {
 					logicalClock = logicalClock + 1
 					fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 				} else {
+					logicalClock = logicalClock + 1
 					fmt.Printf("logicalClock enviado: %d \n", logicalClock)
 					go doClientJob(processID, logicalClock)
 				}
