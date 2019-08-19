@@ -14,9 +14,9 @@ import (
 var myPort string //porta do meu servidor
 var nServers int //qtde de outros processo
 var CliConn []*net.UDPConn 	//vetor com conexões para os servidores
-							//dos outros processos
+//dos outros processos
 var ServConn *net.UDPConn 	//conexão do meu servidor (onde recebo
-							//mensagens dos outros processos)
+//mensagens dos outros processos)
 var ch = make(chan string)
 
 func readInput(ch chan string) {
@@ -66,10 +66,11 @@ func doClientJob(otherProcess int, i int) {
 	time.Sleep(time.Second * 1)
 
 }
+
 func initConnections() {
 	myPort = os.Args[1]
 	nServers = len(os.Args) - 2		//Esse 2 tira o nome (no caso Process) e tira a primeira porta
-	  								//(que é a minha). As demais portas são dos outros processos
+	//(que é a minha). As demais portas são dos outros processos
 
 	// Server
 	ServerAddr, err := net.ResolveUDPAddr("udp", myPort)
@@ -107,27 +108,27 @@ func main() {
 		defer CliConn[i].Close()
 	}
 
-	go readInput(ch)
-
-	// Todos Process fará a mesma coisa: ouvir msg e mandar infinitos i’s para os outros processos
-	for {
-		//Server
-		go doServerJob()
-		// When there is a request (from stdin). Do it!
-		select {
-		case x, valid := <-ch:
-			if valid {
-				fmt.Printf("Recebi do teclado: %s \n", x)
-				//Client
-				for j := 0; j < nServers; j++ {
-					go doClientJob(j, 100)
-				}
-			} else {
-				fmt.Println("Channel closed!")
-			}
-		default:
-			// Do nothing in the non-blocking approach.
-			time.Sleep(time.Second * 1)
-		}
-	}
+	//go readInput(ch)
+	//
+	//// Todos Process fará a mesma coisa: ouvir msg e mandar infinitos i’s para os outros processos
+	//for {
+	//	//Server
+	//	go doServerJob()
+	//	// When there is a request (from stdin). Do it!
+	//	select {
+	//	case x, valid := <-ch:
+	//		if valid {
+	//			fmt.Printf("Recebi do teclado: %s \n", x)
+	//			//Client
+	//			for j := 0; j < nServers; j++ {
+	//				go doClientJob(j, 100)
+	//			}
+	//		} else {
+	//			fmt.Println("Channel closed!")
+	//		}
+	//	default:
+	//		// Do nothing in the non-blocking approach.
+	//		time.Sleep(time.Second * 1)
+	//	}
+	//}
 }
