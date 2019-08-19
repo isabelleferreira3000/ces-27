@@ -1,4 +1,5 @@
 package main
+
 import (
 	"bufio"
 	"fmt"
@@ -10,17 +11,24 @@ import (
 )
 
 //Variáveis globais interessantes para o processo
-//var err string
 var logicalClock int
-var myID int               // id do meu processo
-var otherProcessID int     // id do outro processo
-var myPort string          //porta do meu servidor
-var nPorts int             //qtde de outros processo
-var AllConn []*net.UDPConn //vetor com conexões para os servidores
-//dos outros processos
-var ServConn *net.UDPConn 	//conexão do meu servidor (onde recebo
-//mensagens dos outros processos)
+var myID int
+var myPort string
+
+var nPorts int
+var AllConn []*net.UDPConn
+
+var ServConn *net.UDPConn
+
 var ch = make(chan int)
+
+func max(x int, y int) int {
+	if x >= y {
+		return x
+	} else {
+		return y
+	}
+}
 
 func readInput(ch chan int) {
 	// Non-blocking async routine to listen for terminal input
@@ -47,15 +55,18 @@ func PrintError(err error) {
 }
 
 func doServerJob() {
-	//Ler (uma vez somente) da conexão UDP a mensagem
-	//Escrever na tela a msg recebida (indicando o endereço de quem enviou)
-
 	buf := make([]byte, 1024)
 
 	n,addr,err := ServConn.ReadFromUDP(buf)
-	fmt.Println("Received ",string(buf[0:n]), " from ",addr)
-
 	PrintError(err)
+
+	aux := string(buf[0:n])
+	otherLogicalClock, err := strconv.Atoi(aux)
+	PrintError(err)
+
+	fmt.Println("Received ", otherLogicalClock, " from ", addr)
+	logicalClock = max(otherLogicalClock, logicalClock) + 1
+	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 }
 
 func doClientJob(otherProcessID int, logicalClock int) {
@@ -85,15 +96,15 @@ func initConnections() {
 	// Server
 	ServerAddr, err := net.ResolveUDPAddr("udp", myPort)
 	CheckError(err)
-	auxServConn, err := net.ListenUDP("udp", ServerAddr)
-	ServConn = auxServConn
+	aux, err := net.ListenUDP("udp", ServerAddr)
+	ServConn = aux
 	CheckError(err)
 
 	// Clients
 	for i := 0; i < nPorts; i++ {
 		aPort := os.Args[i+2]
 
-		ServerAddr,err := net.ResolveUDPAddr("udp","127.0.0.1" + aPort)
+		ServerAddr, err := net.ResolveUDPAddr("udp","127.0.0.1" + aPort)
 		CheckError(err)
 
 		LocalAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:0")
@@ -122,14 +133,12 @@ func main() {
 		select {
 		case processID, valid := <-ch:
 			if valid {
-				fmt.Printf("Recebi do teclado: %d \n", processID)
-				fmt.Printf("Meu ID: %d \n", myID)
-
 				//Client
 				if processID == myID {
-					fmt.Println("Meu ID!")
+					logicalClock = logicalClock + 1
+					fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 				} else {
-					fmt.Println("Outro ID!")
+					fmt.Printf("logicalClock enviado: %d \n", logicalClock)
 					go doClientJob(processID, logicalClock)
 				}
 
