@@ -11,20 +11,25 @@ import (
 
 //Variáveis globais interessantes para o processo
 //var err string
-var myPort string //porta do meu servidor
-var nServers int //qtde de outros processo
-var CliConn []*net.UDPConn 	//vetor com conexões para os servidores
+var logicalClock int
+var myID int               // id do meu processo
+var otherProcessID int     // id do outro processo
+var myPort string          //porta do meu servidor
+var nPorts int             //qtde de outros processo
+var AllConn []*net.UDPConn //vetor com conexões para os servidores
 //dos outros processos
 var ServConn *net.UDPConn 	//conexão do meu servidor (onde recebo
 //mensagens dos outros processos)
-var ch = make(chan string)
+var ch = make(chan int)
 
-func readInput(ch chan string) {
+func readInput(ch chan int) {
 	// Non-blocking async routine to listen for terminal input
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		text, _, _ := reader.ReadLine()
-		ch <- string(text)
+		aux, err := strconv.Atoi(string(text))
+		PrintError(err)
+		ch <- aux
 	}
 }
 
@@ -53,13 +58,13 @@ func doServerJob() {
 	PrintError(err)
 }
 
-func doClientJob(otherProcess int, i int) {
-	//Enviar uma mensagem (com valor i) para o servidor do processo
-	//otherServer
-	msg := strconv.Itoa(i)
+func doClientJob(otherProcessID int, logicalClock int) {
+	otherProcess := otherProcessID - 1
+
+	msg := strconv.Itoa(logicalClock)
 	buf := []byte(msg)
 
-	_,err := CliConn[otherProcess].Write(buf)
+	_,err := AllConn[otherProcess].Write(buf)
 	if err != nil {
 		fmt.Println(msg, err)
 	}
@@ -68,32 +73,34 @@ func doClientJob(otherProcess int, i int) {
 }
 
 func initConnections() {
-	myPort = os.Args[1]
-	nServers = len(os.Args) - 2		//Esse 2 tira o nome (no caso Process) e tira a primeira porta
-	//(que é a minha). As demais portas são dos outros processos
+	nPorts = len(os.Args) - 2
+
+	// my process
+	logicalClock = 0
+	auxMyID, err := strconv.Atoi(os.Args[1])
+	PrintError(err)
+	myID = auxMyID
+	myPort = os.Args[myID+1]
 
 	// Server
 	ServerAddr, err := net.ResolveUDPAddr("udp", myPort)
 	CheckError(err)
-	auxCliConn, err := net.ListenUDP("udp", ServerAddr)
-	ServConn = auxCliConn
+	auxServConn, err := net.ListenUDP("udp", ServerAddr)
+	ServConn = auxServConn
 	CheckError(err)
 
 	// Clients
-	for i := 0; i < nServers; i++ {
-		//Outros códigos para deixar ok a conexão do meu servidor (onde recebo msgs).
-		// O processo já deve ficar habilitado a receber msgs.
-		cliPort := os.Args[i+2]
-		ServerAddr,err := net.ResolveUDPAddr("udp","127.0.0.1" + cliPort)
+	for i := 0; i < nPorts; i++ {
+		aPort := os.Args[i+2]
+
+		ServerAddr,err := net.ResolveUDPAddr("udp","127.0.0.1" + aPort)
 		CheckError(err)
 
 		LocalAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:0")
 		CheckError(err)
 
-		//Outros códigos para deixar ok as conexões com os servidores dos outros processos.
-		// Colocar tais conexões no vetor CliConn.
-		auxCliConn, err := net.DialUDP("udp", LocalAddr, ServerAddr)
-		CliConn = append(CliConn, auxCliConn)
+		auxConn, err := net.DialUDP("udp", LocalAddr, ServerAddr)
+		AllConn = append(AllConn, auxConn)
 		CheckError(err)
 	}
 }
@@ -101,34 +108,36 @@ func initConnections() {
 func main() {
 	initConnections()
 
-	// O fechamento de conexões deve ficar aqui, assim só fecha
-	// conexão quando a main morrer
 	defer ServConn.Close()
-	for i := 0; i < nServers; i++ {
-		defer CliConn[i].Close()
+	for i := 0; i < nPorts; i++ {
+		defer AllConn[i].Close()
 	}
 
-	//go readInput(ch)
-	//
-	//// Todos Process fará a mesma coisa: ouvir msg e mandar infinitos i’s para os outros processos
-	//for {
-	//	//Server
-	//	go doServerJob()
-	//	// When there is a request (from stdin). Do it!
-	//	select {
-	//	case x, valid := <-ch:
-	//		if valid {
-	//			fmt.Printf("Recebi do teclado: %s \n", x)
-	//			//Client
-	//			for j := 0; j < nServers; j++ {
-	//				go doClientJob(j, 100)
-	//			}
-	//		} else {
-	//			fmt.Println("Channel closed!")
-	//		}
-	//	default:
-	//		// Do nothing in the non-blocking approach.
-	//		time.Sleep(time.Second * 1)
-	//	}
-	//}
+	go readInput(ch)
+
+	for {
+		//Server
+		go doServerJob()
+		// When there is a request (from stdin). Do it!
+		select {
+		case processID, valid := <-ch:
+			if valid {
+				fmt.Printf("Recebi do teclado: %d \n", processID)
+				fmt.Printf("Meu ID: %d \n", myID)
+
+				//Client
+				if processID == myID {
+					fmt.Println("Meu ID!")
+				} else {
+					fmt.Println("Outro ID!")
+					go doClientJob(processID, logicalClock)
+				}
+
+			} else {
+				fmt.Println("Channel closed!")
+			}
+		default:
+			time.Sleep(time.Second * 1)
+		}
+	}
 }
