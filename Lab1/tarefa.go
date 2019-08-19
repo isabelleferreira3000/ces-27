@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-//Variáveis globais interessantes para o processo
+// Variáveis globais
 var logicalClock int
 var myID int
 var myPort string
@@ -31,7 +31,6 @@ func max(x int, y int) int {
 }
 
 func readInput(ch chan int) {
-	// Non-blocking async routine to listen for terminal input
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		text, _, _ := reader.ReadLine()
@@ -57,14 +56,14 @@ func PrintError(err error) {
 func doServerJob() {
 	buf := make([]byte, 1024)
 
-	n,addr,err := ServConn.ReadFromUDP(buf)
+	n, _, err := ServConn.ReadFromUDP(buf)
 	PrintError(err)
 
 	aux := string(buf[0:n])
 	otherLogicalClock, err := strconv.Atoi(aux)
 	PrintError(err)
 
-	fmt.Println("Received ", otherLogicalClock, " from ", addr)
+	fmt.Println("Received", otherLogicalClock)
 	logicalClock = max(otherLogicalClock, logicalClock) + 1
 	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 }
