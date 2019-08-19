@@ -1,5 +1,6 @@
 package main
 import (
+	"bufio"
 	"fmt"
 	"net"
 	"os"
@@ -16,6 +17,16 @@ var CliConn []*net.UDPConn 	//vetor com conexões para os servidores
 							//dos outros processos
 var ServConn *net.UDPConn 	//conexão do meu servidor (onde recebo
 							//mensagens dos outros processos)
+var ch = make(chan string)
+
+func readInput(ch chan string) {
+	// Non-blocking async routine to listen for terminal input
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		text, _, _ := reader.ReadLine()
+		ch <- string(text)
+	}
+}
 
 func CheckError(err error) {
 	if err != nil {
@@ -96,17 +107,27 @@ func main() {
 		defer CliConn[i].Close()
 	}
 
+	go readInput(ch)
+
 	// Todos Process fará a mesma coisa: ouvir msg e mandar infinitos i’s para os outros processos
-	i := 0
 	for {
 		//Server
 		go doServerJob()
-		//Client
-		for j := 0; j < nServers; j++ {
-			go doClientJob(j, i)
+		// When there is a request (from stdin). Do it!
+		select {
+		case x, valid := <-ch:
+			if valid {
+				fmt.Printf("Recebi do teclado: %s \n", x)
+				//Client
+				for j := 0; j < nServers; j++ {
+					go doClientJob(j, 100)
+				}
+			} else {
+				fmt.Println("Channel closed!")
+			}
+		default:
+			// Do nothing in the non-blocking approach.
+			time.Sleep(time.Second * 1)
 		}
-		// Wait a while
-		time.Sleep(time.Second * 1)
-		i++
 	}
 }
