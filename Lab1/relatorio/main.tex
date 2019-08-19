@@ -66,9 +66,9 @@ Relógio lógico, Relógio lógico escalar, Relógio lógico vetorial, algoritmo
 
 	\subsection{Tarefa 1: Relógio Lógico Escalar}
 	
-	Essa primeira etapa se tratou da implementação da simulação para o Relógio Lógico Escalar de Lamport, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade.
+	A primeira etapa se tratou da implementação da simulação para o Relógio Lógico Escalar de Lamport, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade. Essa implementação foi feita de forma bastante análoga à maneira das dicas fornecidas no roteiro.
 	
-	Essa implementação foi feita de forma bastante análoga à maneira das dicas fornecidas no roteiro, principalmente da terceira.
+	Pode-se começar analisando-se a função main(), cujo código foi apresentado abaixo.
 	
 \begin{lstlisting}
 func main() {
@@ -110,7 +110,18 @@ func main() {
 	}
 \end{lstlisting}
 
-	Em uma visão mais superficial do que acontece nesse código, pode-se começar analisando-se a função main(). Nela, primeiramente são iniciadas as conexões de servidores e clientes, a partir da chamada de initConnections(). Nessa função, também é iniciado o relógio lógico desse processo em questão, além de serem setados seu ID, e as portas de todos os processos. 
+	Na main(), primeiramente são iniciadas as conexões de servidores e clientes, a partir da chamada de initConnections(). Nessa função, também é iniciado o relógio lógico desse processo em questão, além de serem setados seu ID, e as portas de todos os processos. 
+	
+	Após isso, é iniciada uma thread para ler as entradas do usuário a partir da função readInput().
+	
+	Em seguida, é iniciado o loop de fazer o trabalho de servidor (ou seja, atualiza-se o relógio lógico caso chegue uma mensagem de outro processo, por meio da thread doServerJob()) e fica-se esperando uma mensagem do usuário no canal criado \textit{ch}.
+	
+	Ao se receber esse input do usuário, atualiza-se o relógio lógico e, a partir daí, duas ações podem ser tomadas a depender do conteúdo da entrada: 
+	
+\begin{itemize}
+\item faz-se o trabalho de cliente (enviando uma mensagem a um outro processo por meio da thread doClientJob()) caso a entrada seja o ID de outro processo;
+\item ou apenas imprime-se o valor atual do relógio lógico caso a entrada seja o próprio ID desse processo.
+\end{itemize}
 	
 	Abaixo, segue-se o código dessa função initConnections().
 	
@@ -141,9 +152,13 @@ func initConnections() {
 }
 \end{lstlisting}
 
-	Vale ressaltar também que, para esse código e todos os outros dessa atividade, sempre após a setagem da variável \textit{err}, referente a um possível erro advindo de algumas funções, também era chamada a função CheckError(err), que imprime o erro e interrompe o processo caso houvesse algum erro. Essas chamadas de funções foram suprimidas do relatório a fim de simplificar a apresentação dos códigos, e por entender-se que não se trata da ideia principal dos códigos desenvolvidos.
+	Vale ressaltar também que, para esse código e todos os outros dessa atividade, sempre após a setagem da variável \textit{err}, referente a um possível erro advindo de algumas funções, também era chamada a função CheckError(err), que imprime o erro e interrompe o processo caso houvesse algum erro.
 	
-	A função readInput() segue bem semelhante àquela apresenta na Dica 3 do roteiro, com a diferença de aceitar um canal de inteiro ao invés de um canal de string. Assim, a função é capaz de ler o Id que o usuário digitar.
+	Essas chamadas de funções foram suprimidas do relatório a fim de simplificar a apresentação dos códigos, e por entender-se que não se trata da ideia principal dos códigos desenvolvidos.
+	
+	A função readInput() segue bem semelhante àquela apresenta na Dica 3 do roteiro, com a diferença de aceitar um canal de inteiro ao invés de um canal de string. Assim, a função é capaz de ler o ID que o usuário digitar.
+	
+	Já a função doServerJob(), apresentada abaixo, também segue bem semelhante à apresentada na função main() do código do servidor fornecido na Dica 1. A diferença está na retirada do loop \textit{for} e do fechamento da conexão, uma vez que essas etapas se equivalem aos apresentados na main() da atividade (função já apresentada acima). Outra diferença também é a impressão do relógio lógico recebido por mensagem e, em seguida, a impressão do valor atualizado. Segue abaixo o código descrito.
 
 \begin{lstlisting}
 func doServerJob() {
@@ -160,6 +175,8 @@ func doServerJob() {
 	fmt.Println("logicalClock atualizado:", logicalClock)
 }
 \end{lstlisting}
+
+	Por fim, a função doClientJob() também seguiu de forma semelhante ao código apresentado na função main() do código do cliente fornecido na Dica 1. As alterações também foram semelhantes: retirouse o loop \textit{for} e o fechamento da conexão. Além diso, o conteúdo da mensagem a ser enviada foi alterado para o relógio lógico atual do processo em questão. Segue abaixo o código descrito.
 
 \begin{lstlisting}
 func doClientJob(otherProcessID int, logicalClock int) {
