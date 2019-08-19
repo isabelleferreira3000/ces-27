@@ -11,6 +11,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
+\usepackage{listings-golang}
 \usepackage{color}
 \usepackage{float}
 \usepackage{multirow}
@@ -21,7 +22,7 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \lstset{frame=tb,
-  language=Java,
+  language=Golang,
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
@@ -36,7 +37,7 @@
   breakatwhitespace=true,
   tabsize=3
 }
-\lstset{language=Python}
+\lstset{language=Golang}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -65,24 +66,113 @@ Relógio lógico, Relógio lógico escalar, Relógio lógico vetorial, algoritmo
 
 	\subsection{Tarefa 1: Relógio Lógico Escalar}
 	
-	Essa primeira etapa se tratou da implementação do método build\underline{\space}model() da classe DQNAgent de dqn\underline{\space}agent.py, script fornecido no código base do laboratório. Nesse método, era preciso construir uma rede em Keras de acordo com as especificações apresentadas na Tabela 3 do roteiro do laboratório \cite{roteiro}.
+	Essa primeira etapa se tratou da implementação da simulação para o Relógio Lógico Escalar de Lamport, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade.
 	
-	Essa implementação foi feita de forma bastante análoga à maneira do laboratório 8 \cite{roteiro8}, ou seja, seguindo o apresentado no pseudo-código em Python a seguir.
+	Essa implementação foi feita de forma bastante análoga à maneira das dicas fornecidas no roteiro, principalmente da terceira.
 	
 \begin{lstlisting}
-# Adds the first layer
-model.add(layers.Dense(num_neurons,
-	activation=activations.some_function,
-	input_dim=state_size))
+func main() {
+	initConnections()
 
-# Adds another layer (not first)
-model.add(layers.Dense(num_neurons,
-	activation=activations.some_function))
+	// close connections when it's over
+	defer ServConn.Close()
+	for i := 0; i < nPorts; i++ {
+		defer AllConn[i].Close()
+	}
+
+	// read "processID" from user input
+	go readInput(ch)
+
+	for {
+		// Server
+		go doServerJob()
+		
+		select {
+		case processID, valid := <-ch:
+			if valid {
+				// update clock
+				logicalClock++
+				
+				//Client
+				if processID == myID {
+					fmt.Println("logicalClock atualizado:", logicalClock)
+				} else {
+					fmt.Println("logicalClock enviado:", logicalClock)
+					go doClientJob(processID, logicalClock)
+				}
+
+			} else {
+				fmt.Println("Channel closed!")
+			}
+		default:
+			time.Sleep(time.Second * 1)
+		}
+	}
 \end{lstlisting}
 
-	Vale ressaltar que, para atender os critérios requisitados, some\underline{\space}function do pseudo-código acima se tratou de \textit{relu} para as duas primeiras camadas, e de \textit{linear} para terceira camada. Além disso, num\underline{\space}neurons foram 24, 24 e action\underline{\space}size para as primeira, segunda e terceira camada, respectivamente.
+	Em uma visão mais superficial do que acontece nesse código, pode-se começar analisando-se a função main(). Nela, primeiramente são iniciadas as conexões de servidores e clientes, a partir da chamada de initConnections(). Nessa função, também é iniciado o relógio lógico desse processo em questão, além de serem setados seu ID, e as portas de todos os processos. 
+	
+	Abaixo, segue-se o código dessa função initConnections().
+	
+\begin{lstlisting}
+func initConnections() {
+	nPorts = len(os.Args) - 2
 
-	Fora isso, bastou-se descomentar as linhas de criação de uma pilha linear de camadas, as linhas compilação do modelo e impressão do summary do modelo, apresentado futuramente na seção \ref{results} (Resultados e Conclusões), e a linha de retorno da função.
+	// my process
+	logicalClock = 0
+	auxMyID, err := strconv.Atoi(os.Args[1])
+	myID = auxMyID
+	myPort = os.Args[myID+1]
+
+	// Server
+	ServerAddr, err := net.ResolveUDPAddr("udp", myPort)
+	aux, err := net.ListenUDP("udp", ServerAddr)
+	ServConn = aux
+
+	// Clients
+	for i := 0; i < nPorts; i++ {
+		aPort := os.Args[i+2]
+		
+		ServerAddr, err := net.ResolveUDPAddr("udp","127.0.0.1" + aPort)
+		LocalAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:0")
+		auxConn, err := net.DialUDP("udp", LocalAddr, ServerAddr)
+		AllConn = append(AllConn, auxConn)
+	}
+}
+\end{lstlisting}
+
+	Vale ressaltar também que, para esse código e todos os outros dessa atividade, sempre após a setagem da variável \textit{err}, referente a um possível erro advindo de algumas funções, também era chamada a função CheckError(err), que imprime o erro e interrompe o processo caso houvesse algum erro. Essas chamadas de funções foram suprimidas do relatório a fim de simplificar a apresentação dos códigos, e por entender-se que não se trata da ideia principal dos códigos desenvolvidos.
+	
+	A função readInput() segue bem semelhante àquela apresenta na Dica 3 do roteiro, com a diferença de aceitar um canal de inteiro ao invés de um canal de string. Assim, a função é capaz de ler o Id que o usuário digitar.
+
+\begin{lstlisting}
+func doServerJob() {
+	buf := make([]byte, 1024)
+
+	n, _, err := ServConn.ReadFromUDP(buf)
+
+	aux := string(buf[0:n])
+	otherLogicalClock, err := strconv.Atoi(aux)
+	fmt.Println("Received", otherLogicalClock)
+	
+	// updating logical clock
+	logicalClock = max(otherLogicalClock, logicalClock) + 1
+	fmt.Println("logicalClock atualizado:", logicalClock)
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+func doClientJob(otherProcessID int, logicalClock int) {
+	otherProcess := otherProcessID - 1
+
+	msg := strconv.Itoa(logicalClock)
+	buf := []byte(msg)
+
+	_,err := AllConn[otherProcess].Write(buf)
+
+	time.Sleep(time.Second * 1)
+}
+\end{lstlisting}
 
 	\subsection{Tarefa 2: Relógio Lógico Vetorial}
 
@@ -97,13 +187,13 @@ model.add(layers.Dense(num_neurons,
 	Essa implementação foi feita conforme as equações apresentadas na seção 4.3 do roteiro do laboratório \cite{roteiro}, ou seja, assim como apresentado no pseudo-código em Python a seguir.
 	
 \begin{lstlisting}
-reward = reward + (position - start) * (position - start) + velocity * velocity
+package main
 
-aux = 0
-if next_position >= 0.5:
-    aux = 1
+import "fmt"
 
-reward += 50 * aux
+func main() {
+    fmt.Println("Hello World!")
+}
 \end{lstlisting}
 
 	Os valores de position, start, velocity e next\underline{\space}position também eram fornecidos no roteiro \cite{roteiro}, e bastava substituí-los no pseudo-código acima.

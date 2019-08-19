@@ -3,6 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="295c68d7-27ab-4ad8-89f1-c5dab16db2e7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/relatorio/main.aux" beforeDir="false" afterPath="$PROJECT_DIR$/relatorio/main.aux" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/relatorio/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/relatorio/main.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/relatorio/main.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/relatorio/main.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/relatorio/main.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/relatorio/main.synctex.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/relatorio/main.tex" beforeDir="false" afterPath="$PROJECT_DIR$/relatorio/main.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tarefa1.go" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa1.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tarefa1/tarefa1.go" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,11 +47,13 @@
     <property name="configurable.Module.GOPATH.is.expanded" value="false" />
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tarefa2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tarefa2" />
+      <recent name="$PROJECT_DIR$/tarefa1" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

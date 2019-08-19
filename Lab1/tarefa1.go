@@ -10,33 +10,24 @@ import (
 	"time"
 )
 
-// Variáveis globais
+// global variables
 var logicalClock int
 var myID int
 var myPort string
 
 var nPorts int
-var AllConn []*net.UDPConn
 
+var AllConn []*net.UDPConn
 var ServConn *net.UDPConn
 
 var ch = make(chan int)
 
+// auxiliary functions
 func max(x int, y int) int {
 	if x >= y {
 		return x
 	} else {
 		return y
-	}
-}
-
-func readInput(ch chan int) {
-	reader := bufio.NewReader(os.Stdin)
-	for {
-		text, _, _ := reader.ReadLine()
-		aux, err := strconv.Atoi(string(text))
-		PrintError(err)
-		ch <- aux
 	}
 }
 
@@ -47,9 +38,13 @@ func CheckError(err error) {
 	}
 }
 
-func PrintError(err error) {
-	if err != nil {
-		fmt.Println("Erro: ", err)
+func readInput(ch chan int) {
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		text, _, _ := reader.ReadLine()
+		aux, err := strconv.Atoi(string(text))
+		CheckError(err)
+		ch <- aux
 	}
 }
 
@@ -57,11 +52,11 @@ func doServerJob() {
 	buf := make([]byte, 1024)
 
 	n, _, err := ServConn.ReadFromUDP(buf)
-	PrintError(err)
+	CheckError(err)
 
 	aux := string(buf[0:n])
 	otherLogicalClock, err := strconv.Atoi(aux)
-	PrintError(err)
+	CheckError(err)
 
 	fmt.Println("Received", otherLogicalClock)
 	logicalClock = max(otherLogicalClock, logicalClock) + 1
@@ -75,11 +70,9 @@ func doClientJob(otherProcessID int, logicalClock int) {
 	buf := []byte(msg)
 
 	_,err := AllConn[otherProcess].Write(buf)
-	if err != nil {
-		fmt.Println(msg, err)
-	}
-	time.Sleep(time.Second * 1)
+	CheckError(err)
 
+	time.Sleep(time.Second * 1)
 }
 
 func initConnections() {
@@ -88,7 +81,7 @@ func initConnections() {
 	// my process
 	logicalClock = 0
 	auxMyID, err := strconv.Atoi(os.Args[1])
-	PrintError(err)
+	CheckError(err)
 	myID = auxMyID
 	myPort = os.Args[myID+1]
 
@@ -128,7 +121,7 @@ func main() {
 	for {
 		//Server
 		go doServerJob()
-		// When there is a request (from stdin). Do it!
+
 		select {
 		case processID, valid := <-ch:
 			if valid {
