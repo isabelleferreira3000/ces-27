@@ -1,4 +1,4 @@
-package main
+package exemplo_json
 
 import (
 	"encoding/json"

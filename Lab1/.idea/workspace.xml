@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="295c68d7-27ab-4ad8-89f1-c5dab16db2e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tarefa2.go" beforeDir="false" afterPath="$PROJECT_DIR$/tarefa2.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/udp_client.go" beforeDir="false" afterPath="$PROJECT_DIR$/exemplo_json/udp_client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/udp_server.go" beforeDir="false" afterPath="$PROJECT_DIR$/exemplo_json/udp_server.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +50,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/exemplo_json" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/tarefa2" />
       <recent name="$PROJECT_DIR$/tarefa1" />
