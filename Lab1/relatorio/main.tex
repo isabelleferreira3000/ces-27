@@ -193,35 +193,24 @@ func doClientJob(otherProcessID int, logicalClock int) {
 
 	\subsection{Tarefa 2: Relógio Lógico Vetorial}
 
-	Já essa etapa se tratou da implementação do método act() também da classe DQNAgent de dqn\underline{\space}agent.py. Nesse método, era escolhido e retornado uma ação de acordo com a política $\epsilon$-greedy.
+	A segunda etapa se tratou da implementação da simulação para o Relógio Lógico Vetorial, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade. Essa implementação foi feita de forma bastante análoga à da Tarefa 1.
 	
-	Essa implementação foi feita de forma bastante análoga à maneira do laboratório 12 \cite{roteiro12}. Assim, gerou-se um número aleatório entre 0 e 1 e, caso esse valor aleatório seja menor que epsilon, então uma ação aleatória é escolhida; caso contrário, é escolhida a ação gulosa, através do retorno do índice do máximo elemento do array \textit{model.predict(state)[0]}.
-		
-	\subsection{Reward Engineering}
-	
-	Nesse momento, foi implementado o método reward\underline{\space}engineering\underline{\space}mountain\underline{\space}car() de utils.py, script também fornecido no código base do laboratório. Nesse método, eram calculadas e retornadas as recompensas intermediárias "artificias", chamadas reward engineering, a fim de tornar o treino mais rápido no ambiente do Mountain Car.
-	
-	Essa implementação foi feita conforme as equações apresentadas na seção 4.3 do roteiro do laboratório \cite{roteiro}, ou seja, assim como apresentado no pseudo-código em Python a seguir.
-	
-\begin{lstlisting}
-package main
+	As principais alterações na implementação foram:
+\begin{itemize}
+\item mudança do logicalClock de inteiro para uma \textit{struct} com o ID do processo atual e um vetor com os clocks de todos os processos;
+\item alteração das mensagens recebidas e enviadas (de inteiros para \textit{jsons} contendo as \textit{structs});
+\item alteração na lógica de atualização do vetor de clocks.
+\end{itemize}
 
-import "fmt"
-
-func main() {
-    fmt.Println("Hello World!")
-}
-\end{lstlisting}
-
-	Os valores de position, start, velocity e next\underline{\space}position também eram fornecidos no roteiro \cite{roteiro}, e bastava substituí-los no pseudo-código acima.
-
-	\subsection{Treinamento usando DQN}
+	O impacto dessas mudanças nas funções no código desenvolvido na Tarefa 2 em relação a Tarefa 1 foram:
 	
-	Bastava treinar o modelo implementado, executando o script train\underline{\space}dqn.py, também do código base, e observar os resultados e os gráficos obtidos.
+\begin{itemize}
+\item em initConnections(), a iniciação do logicalClock se trata de setar o atributo myId e criar o vetor de clocks da struct com valores iniciais zero;
+\item as mensagens (structs) trocadas entre processos foram encapsuladas na forma de json a partir da função json.Marshal() e desencapsuladas com a função json.Unmarshal();
+\item ao se receber a struct logicalClock de outro processo, (além de incrementar o clock referente ao processo atual) os valores de clocks eram atualizados para o máximo entre o clock armazenado e o clock recém recebido.
+\end{itemize}
 
-	\subsection{Avaliação da Política}
-	
-	Bastava aplicar o modelo implementado no ambiente do Mountain Car, executando o script evaluate\underline{\space}dqn.py, também do código base, e observar a simulação, os resultados e os gráficos obtidos.
+Como as alterações foram pequenas e já foram descritas acima, não se considerou necessário colocar nesse relatório as partes referentes do código da Tarefa 2. Caso seja necessário, pode-se também consultar o código enviado como anexo a essa atividade. 
 
 \section{Resultados e Conclusões} \label{results}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  19 AUG 2019 19:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  19 AUG 2019 20:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1039,65 +1039,53 @@ Package babel Info: Redefining portuges shorthand "|
 ]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 194.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 200.
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--203
-[]\T1/ptm/m/n/10 Nesse mo-mento, foi im-ple-men-tado o mé-todo
+Underfull \hbox (badness 1472) in paragraph at lines 209--210
+[]\T1/ptm/m/n/10 as men-sa-gens (structs) tro-ca-das en-tre pro-ces-sos fo-
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 218.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 222.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 226.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 229.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 229.
-[2] <imagens/summary.png, id=156, 476.78125pt x 177.66376pt>
+(babel)             in language  on input line 215.
+<imagens/summary.png, id=91, 476.78125pt x 177.66376pt>
 File: imagens/summary.png Graphic file (type png)
 
 <use imagens/summary.png>
-Package pdftex.def Info: imagens/summary.png used on input line 232.
+Package pdftex.def Info: imagens/summary.png used on input line 221.
 (pdftex.def)             Requested size: 238.39003pt x 88.83165pt.
- <imagens/train/15.png, id=158, 642.4pt x 481.8pt>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 229.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 229.
+ [2]
+<imagens/train/15.png, id=135, 642.4pt x 481.8pt>
 File: imagens/train/15.png Graphic file (type png)
-
-<use imagens/train/15.png>
-Package pdftex.def Info: imagens/train/15.png used on input line 243.
+ <use imagens/train/15.png>
+Package pdftex.def Info: imagens/train/15.png used on input line 232.
 (pdftex.def)             Requested size: 192.72148pt x 144.5411pt.
 
-<imagens/dqn_evaluation.png, id=163, 462.528pt x 346.896pt>
+<imagens/dqn_evaluation.png, id=140, 462.528pt x 346.896pt>
 File: imagens/dqn_evaluation.png Graphic file (type png)
 
 <use imagens/dqn_evaluation.png>
-Package pdftex.def Info: imagens/dqn_evaluation.png used on input line 254.
+Package pdftex.def Info: imagens/dqn_evaluation.png used on input line 243.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 
-<imagens/evaluate_dqn_result.png, id=165, 415.5525pt x 466.74374pt>
+<imagens/evaluate_dqn_result.png, id=142, 415.5525pt x 466.74374pt>
 File: imagens/evaluate_dqn_result.png Graphic file (type png)
 
 <use imagens/evaluate_dqn_result.png>
-Package pdftex.def Info: imagens/evaluate_dqn_result.png used on input line 261
+Package pdftex.def Info: imagens/evaluate_dqn_result.png used on input line 250
 .
 (pdftex.def)             Requested size: 166.21805pt x 186.69418pt.
 
-<imagens/agent_decision.png, id=167, 462.528pt x 346.896pt>
+<imagens/agent_decision.png, id=144, 462.528pt x 346.896pt>
 File: imagens/agent_decision.png Graphic file (type png)
 
 <use imagens/agent_decision.png>
-Package pdftex.def Info: imagens/agent_decision.png used on input line 278.
+Package pdftex.def Info: imagens/agent_decision.png used on input line 267.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 284.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 284.
- [3 <./imagens/summary.png> <./imagens/train/15.png (PNG copy)> <./imagens/dqn_
-evaluation.png> <./imagens/evaluate_dqn_result.png>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 285.
+(babel)             in language  on input line 274.
 
 
 ** Conference Paper **
@@ -1110,45 +1098,50 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 294.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 283.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 294.
+(babel)             in language  on input line 283.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 294.
-[4
+(babel)             in language  on input line 283.
+[3 <./imagens/summary.png> <./imagens/train/15.png (PNG copy)> <./imagens/dqn_e
+valuation.png> <./imagens/evaluate_dqn_result.png>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 283.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 283.
+ [4
 
  <./imagens/agent_decision.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 294.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 294.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 294.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 329000FC0224695F5F10C55F2D8EA5AB;557.
+(rerunfilecheck)             Checksum: 2958EFAAEA63BBAD658696AF07A4B8AE;340.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 294.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
- 10900 strings out of 493029
- 153773 string characters out of 6136235
+ 10879 strings out of 493029
+ 153476 string characters out of 6136235
  289648 words of memory out of 5000000
- 14165 multiletter control sequences out of 15000+600000
+ 14155 multiletter control sequences out of 15000+600000
  106059 words of font info for 112 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  31i,8n,40p,683b,1844s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8
-a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 264779 bytes).
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/
+utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (4 pages, 254666 bytes).
 PDF statistics:
- 236 PDF objects out of 1000 (max. 8388607)
- 213 compressed objects within 3 object streams
- 117 named destinations out of 1000 (max. 500000)
- 90 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 205 PDF objects out of 1000 (max. 8388607)
+ 184 compressed objects within 2 object streams
+ 106 named destinations out of 1000 (max. 500000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
