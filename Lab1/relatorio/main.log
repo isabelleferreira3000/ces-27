@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  19 AUG 2019 20:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  19 AUG 2019 20:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1046,24 +1046,25 @@ Underfull \hbox (badness 1472) in paragraph at lines 209--210
 
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 215.
-<imagens/summary.png, id=91, 476.78125pt x 177.66376pt>
-File: imagens/summary.png Graphic file (type png)
+<imagens/tarefa1-testeslide.png, id=91, 464.73625pt x 501.875pt>
+File: imagens/tarefa1-testeslide.png Graphic file (type png)
 
-<use imagens/summary.png>
-Package pdftex.def Info: imagens/summary.png used on input line 221.
-(pdftex.def)             Requested size: 238.39003pt x 88.83165pt.
+<use imagens/tarefa1-testeslide.png>
+Package pdftex.def Info: imagens/tarefa1-testeslide.png used on input line 221.
+
+(pdftex.def)             Requested size: 232.36755pt x 250.93687pt.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 229.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 229.
  [2]
-<imagens/train/15.png, id=135, 642.4pt x 481.8pt>
+<imagens/train/15.png, id=136, 642.4pt x 481.8pt>
 File: imagens/train/15.png Graphic file (type png)
  <use imagens/train/15.png>
 Package pdftex.def Info: imagens/train/15.png used on input line 232.
 (pdftex.def)             Requested size: 192.72148pt x 144.5411pt.
 
-<imagens/dqn_evaluation.png, id=140, 462.528pt x 346.896pt>
+<imagens/dqn_evaluation.png, id=141, 462.528pt x 346.896pt>
 File: imagens/dqn_evaluation.png Graphic file (type png)
 
 <use imagens/dqn_evaluation.png>
@@ -1085,6 +1086,12 @@ File: imagens/agent_decision.png Graphic file (type png)
 Package pdftex.def Info: imagens/agent_decision.png used on input line 267.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 273.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 273.
+ [3 <./imagens/tarefa1-testeslide.png> <./imagens/train/15.png (PNG copy)> <./i
+magens/dqn_evaluation.png> <./imagens/evaluate_dqn_result.png>]
+Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 274.
 
 
@@ -1103,13 +1110,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 283.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 283.
-[3 <./imagens/summary.png> <./imagens/train/15.png (PNG copy)> <./imagens/dqn_e
-valuation.png> <./imagens/evaluate_dqn_result.png>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 283.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 283.
- [4
+[4
 
  <./imagens/agent_decision.png>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
@@ -1118,15 +1119,11 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 2958EFAAEA63BBAD658696AF07A4B8AE;340.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
  10879 strings out of 493029
- 153476 string characters out of 6136235
+ 153531 string characters out of 6136235
  289648 words of memory out of 5000000
  14155 multiletter control sequences out of 15000+600000
  106059 words of font info for 112 fonts, out of 8000000 for 9000
@@ -1138,9 +1135,9 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
 ype1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/
 utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (4 pages, 254666 bytes).
+Output written on main.pdf (4 pages, 287310 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
+ 206 PDF objects out of 1000 (max. 8388607)
  184 compressed objects within 2 object streams
  106 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
