@@ -214,14 +214,62 @@ Como as principais alterações foram pequenas e já foram descritas acima, não
 
 \section{Resultados e Conclusões} \label{results}
 
-	O summary do modelo implementado em make\underline{\space}model() foi apresentado na Figura \ref{summary}, e condiz com os requisitos pedidos na Tabela 3 do roteiro do laboratório \cite{roteiro}. 
+\subsection{Tarefa 1}
 
-\begin{figure}[htbp]
+	A implementação mostrou-se correta, uma vez que os resultados dos testes e das simulações se mostraram condizentes com o esperado.
+	
+	O primeiro teste executado foi apresentado na Figura \ref{tarefa1-testeslide}, e se tratava do exemplo apresentado nos slides da aula. Eram três processos ($P_1$, $P_2$ e $P_3$), e os acontecimentos se deram da seguinte maneira:
+	
+\begin{itemize}
+\item $P_1$ realizou seu primeiro evento, incrementando seu relógio lógico para 1;
+\item $P_3$ realizou seu primeiro evento, incrementando seu relógio lógico para 1;
+\item $P_1$ mandou uma mensagem para $P_2$, incrementando seus relógios lógicos para 2 e 3, respectivamente;
+\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para 4 e 5, respectivamente.
+\end{itemize}
+
+	Como esses resultados, conforme na Figura \ref{tarefa1-testeslide}, foram exatamente os esperados de acordo com os slides da aula, tem-se que esse teste foi satisfatório.
+	
+\begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/tarefa1-testeslide.png}}
-\caption{Sumário do modelo implementado em Keras.}.
-\label{summary}
+\centerline{\includegraphics[scale=0.45]{imagens/tarefa1-testeslide.png}}
+\caption{Exemplo do funcionamento da Tarefa 1 para 3 processos.}.
+\label{tarefa1-testeslide}
 \end{figure}
+	
+	Outro teste executado foi o apresentado nas Figuras \ref{tarefa1-testecriado-1} e \ref{tarefa1-testecriado-2}. Essas duas figuras apresentam o mesmo teste, dessa vez para quatro processos, sendo a Figura \ref{tarefa1-testecriado-1} referente aos processos 1 e 3, e a Figura \ref{tarefa1-testecriado-2} aos processos 2 e 4. Os eventos aconteceram da seguinte maneira:
+	
+\begin{itemize}
+\item $P_1$ realizou seus três primeiros eventos, incrementando seu relógio lógico para 3;
+\item $P_2$ realizou seu primeiro evento, incrementando seu relógio lógico para 1;
+\item $P_4$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 1 e 4, respectivamente;
+\item $P_4$ realizou cinco eventos, incrementando seu relógio lógico para 6;
+\item $P_4$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 7 e 8, respectivamente;
+\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para 2 e 3, respectivamente;
+\item $P_2$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 3 e 9, respectivamente;
+\item $P_2$ mandou uma mensagem para $P_4$, incrementando seus relógios lógicos para 4 e 8, respectivamente;
+\item $P_2$ realizou um evento, incrementando seu relógio lógico para 5;
+\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para 6 e 7, respectivamente;
+\item $P_3$ realizou três eventos, incrementando seu relógio lógico para 10;
+\item $P_3$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 11 e 12, respectivamente.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-1.png}}
+\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
+\label{tarefa1-testecriado-1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-2.png}}
+\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 2 e 4.}.
+\label{tarefa1-testecriado-2}
+\end{figure}
+
+	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa 1 foi feita corretamente.
+
+\subsection{Tarefa 2}
 
 	Já a Figura \ref{train/15} representa as recompensas acumulativas advindas do treinamento do modelo em 300 episódios. Esse resultado dependem diretamente da correta implementação e funcionamento dos métodos make\underline{\space}model() e act().
 	
