@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="295c68d7-27ab-4ad8-89f1-c5dab16db2e7" name="Default Changelist" comment="" />
+    <list default="true" id="295c68d7-27ab-4ad8-89f1-c5dab16db2e7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../CES27-Atividade1-SimpleUDPClientServerGolang.pdf" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
