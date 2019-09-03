@@ -44,7 +44,8 @@ func main() {
 	Connection, err = net.ListenUDP("udp", Address)
 	CheckError(err)
 	defer Connection.Close()
+
 	for {
-		go doServerJob()
+		doServerJob()
 	}
 }
