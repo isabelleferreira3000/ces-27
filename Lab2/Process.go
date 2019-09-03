@@ -229,13 +229,13 @@ func main() {
 		select {
 		case textReceived, valid := <-ch:
 			if valid {
-				// updating my clock
-				logicalClock++
-				fmt.Println("logicalClock atualizado:", logicalClock)
-
 				if myState == "WANTED" || myState == "HELD" {
 					fmt.Println(textReceived, "invalido")
 				} else {
+					// updating my clock
+					logicalClock++
+					fmt.Println("logicalClock atualizado:", logicalClock)
+
 					if textReceived != myIDString {
 						messageSent.Text = textReceived
 
