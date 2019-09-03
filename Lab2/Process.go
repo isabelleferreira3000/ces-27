@@ -14,6 +14,7 @@ import (
 // global variables
 var logicalClock int
 var myID int
+var myIDString string
 var myPort string
 var myState string
 
@@ -62,6 +63,49 @@ func CheckError(err error) {
 func setState(newState string) {
 	myState = newState
 	fmt.Println("Estado:", myState)
+}
+
+func useCS(){
+	fmt.Println("Entrei na CS")
+	messageSent.LogicalClock = logicalClock
+
+	jsonMessage, err := json.Marshal(messageSent)
+	CheckError(err)
+	_, err = SharedResourceConn.Write(jsonMessage)
+	CheckError(err)
+
+	time.Sleep(time.Second * 10)
+	fmt.Println("Sai da CS")
+}
+
+func multicastRequests() {
+	fmt.Println("Multicast request to all processes")
+	fmt.Println("Request enviado:", request)
+	jsonRequest, err := json.Marshal(request)
+	CheckError(err)
+
+	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
+		if otherProcessID != myID {
+			_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
+			CheckError(err)
+		}
+	}
+}
+
+func waitReplies() {
+	fmt.Println("Esperando N-1 respostas")
+	for nReplies != nPorts-1 {}
+	nReplies = 0
+}
+
+func replyRequests(){
+	for _, element := range requestsQueue {
+		jsonReply, err := json.Marshal(reply)
+		CheckError(err)
+		_, err = ClientsConn[element-1].Write(jsonReply)
+		CheckError(err)
+	}
+	requestsQueue = make([]int, 0)
 }
 
 func readInput(ch chan string) {
@@ -115,50 +159,26 @@ func doServerJob() {
 }
 
 func doClientJob(request RequestReplyStruct) {
-	jsonRequest, err := json.Marshal(request)
-	CheckError(err)
+	multicastRequests()
+	waitReplies()
 
-	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
-		if otherProcessID != myID {
-			_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
-			CheckError(err)
-		}
-	}
-
-	fmt.Println("Esperando N-1 respostas")
-	for nReplies != nPorts-1 {}
-	nReplies = 0
 	setState("HELD")
-
-	messageSent.LogicalClock = logicalClock
-	messageSent.Id = myID
-
-	jsonMessage, err := json.Marshal(messageSent)
-	CheckError(err)
-	_, err = SharedResourceConn.Write(jsonMessage)
-	CheckError(err)
-
-	time.Sleep(time.Second * 1)
-
+	useCS()
 	setState("RELEASED")
-	for _, element := range requestsQueue {
-		reply.Type = "reply"
-		jsonReply, err := json.Marshal(reply)
-		CheckError(err)
-		_, err = ClientsConn[element-1].Write(jsonReply)
-		CheckError(err)
-	}
-	requestsQueue = make([]int, 0)
+
+	replyRequests()
 }
 
 func initConnections() {
 	nPorts = len(os.Args) - 2
 
 	// my process
+	nReplies = 0
 	logicalClock = 0
 	auxMyID, err := strconv.Atoi(os.Args[1])
 	CheckError(err)
 	myID = auxMyID
+	myIDString = strconv.Itoa(myID)
 	myPort = os.Args[myID+1]
 
 	// Server
@@ -196,15 +216,20 @@ func initConnections() {
 
 func main() {
 	initConnections()
+
+	// set initial values
+	messageSent.Id = myID
+	request.Id = myID
+	request.Type = "request"
+	reply.Id = myID
+	reply.Type = "reply"
+
 	setState("RELEASED")
-	nReplies = 0
 
 	defer ServerConn.Close()
 	for i := 0; i < nPorts; i++ {
 		defer ClientsConn[i].Close()
 	}
-
-	myIDString := strconv.Itoa(myID)
 
 	go readInput(ch)
 
@@ -216,26 +241,23 @@ func main() {
 			if valid {
 				// updating my clock
 				logicalClock++
+				fmt.Println("logicalClock atualizado:", logicalClock)
 
-				// Clients
-				if textReceived == myIDString {
-					fmt.Println("logicalClock atualizado:", logicalClock)
+				if myState == "WANTED" || myState == "HELD" {
+					fmt.Println(textReceived, "invalido")
 				} else {
-					messageSent.Text = textReceived
+					// Clients
+					if textReceived != myIDString {
+						messageSent.Text = textReceived
 
-					// updating my clock
-					logicalClock++
-					fmt.Println("logicalClock atualizado:", logicalClock)
+						// updating my clock
+						logicalClock++
+						fmt.Println("logicalClock atualizado:", logicalClock)
 
-					setState("WANTED")
-					fmt.Println("Multicast request to all processes")
-
-					request.Id = myID
-					request.LogicalClock = logicalClock
-					request.Type = "request"
-					fmt.Println("Request enviado:", request)
-
-					go doClientJob(request)
+						setState("WANTED")
+						request.LogicalClock = logicalClock
+						go doClientJob(request)
+					}
 				}
 
 			} else {
