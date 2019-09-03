@@ -12,6 +12,8 @@ import (
 )
 
 // global variables
+var logicalClock int
+var myID int
 var myPort string
 
 var nPorts int
@@ -19,13 +21,14 @@ var nPorts int
 var ClientsConn []*net.UDPConn
 var ServerConn *net.UDPConn
 
-var ch = make(chan int)
+var ch = make(chan string)
 
-type ClockStruct struct {
+type MessageStruct struct {
 	Id int
-	Clocks []int
+	LogicalClock int
+	Text string
 }
-var logicalClock ClockStruct
+var messageSent MessageStruct
 
 // auxiliary functions
 func max(x int, y int) int {
@@ -43,13 +46,11 @@ func CheckError(err error) {
 	}
 }
 
-func readInput(ch chan int) {
+func readInput(ch chan string) {
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		text, _, _ := reader.ReadLine()
-		aux, err := strconv.Atoi(string(text))
-		CheckError(err)
-		ch <- aux
+		ch <- string(text)
 	}
 }
 
@@ -59,56 +60,37 @@ func doServerJob() {
 	n, _, err := ServerConn.ReadFromUDP(buf)
 	CheckError(err)
 
-	var otherLogicalClock ClockStruct
-	err = json.Unmarshal(buf[:n], &otherLogicalClock)
+	aux := string(buf[0:n])
+	otherLogicalClock, err := strconv.Atoi(aux)
 	CheckError(err)
 
 	fmt.Println("Received", otherLogicalClock)
-	myId := logicalClock.Id
-	myClocks := logicalClock.Clocks
-	otherProcessClocks := otherLogicalClock.Clocks
-
-	// updating clocks
-	logicalClock.Clocks[myId-1]++
-	for i := 0; i < nPorts; i++ {
-		logicalClock.Clocks[i] = max(otherProcessClocks[i], myClocks[i])
-	}
-
-	fmt.Println("logicalClock atualizado:", logicalClock)
+	logicalClock = max(otherLogicalClock, logicalClock) + 1
+	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 }
 
-func doClientJob(otherProcessID int) {
-	otherProcess := otherProcessID - 1
-
-	jsonRequest, err := json.Marshal(logicalClock)
+func doClientJob(messageSent MessageStruct) {
+	jsonRequest, err := json.Marshal(messageSent)
 	CheckError(err)
 
-	_, err = ClientsConn[otherProcess].Write(jsonRequest)
-	CheckError(err)
-
+	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
+		if otherProcessID != myID {
+			_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
+			CheckError(err)
+		}
+	}
 	time.Sleep(time.Second * 1)
 }
 
 func initConnections() {
 	nPorts = len(os.Args) - 2
 
-	// getting my Id
-	auxMyId, err := strconv.Atoi(os.Args[1])
+	// my process
+	logicalClock = 0
+	auxMyID, err := strconv.Atoi(os.Args[1])
 	CheckError(err)
-	myId := auxMyId
-
-	// getting my port
-	myPort = os.Args[myId + 1]
-
-	// creating logicalClock
-	var clocks []int
-	for i := 0; i < nPorts; i++ {
-		clocks = append(clocks, 0)
-	}
-	logicalClock = ClockStruct{
-		myId,
-		clocks,
-	}
+	myID = auxMyID
+	myPort = os.Args[myID+1]
 
 	// Server
 	ServerAddr, err := net.ResolveUDPAddr("udp", myPort)
@@ -119,7 +101,6 @@ func initConnections() {
 
 	// Clients
 	for i := 0; i < nPorts; i++ {
-		// getting each port
 		aPort := os.Args[i+2]
 
 		ServerAddr, err := net.ResolveUDPAddr("udp","127.0.0.1" + aPort)
@@ -142,24 +123,28 @@ func main() {
 		defer ClientsConn[i].Close()
 	}
 
+	myIDString := strconv.Itoa(myID)
+
 	go readInput(ch)
 
-	for {
-		// Server
-		go doServerJob()
+	go doServerJob()
 
+	for {
 		select {
-		case processID, valid := <-ch:
+		case textReceived, valid := <-ch:
 			if valid {
 				// updating my clock
-				myId := logicalClock.Id
-				logicalClock.Clocks[myId-1]++
+				logicalClock++
+
 				// Clients
-				if processID == myId {
-					fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
+				if textReceived == myIDString {
+					fmt.Println("logicalClock atualizado:", logicalClock)
 				} else {
-					fmt.Printf("logicalClock enviado: %d \n", logicalClock)
-					go doClientJob(processID)
+					messageSent.Id = myID
+					messageSent.LogicalClock = logicalClock
+					messageSent.Text = textReceived
+					fmt.Println("Mensagem enviado:", messageSent)
+					go doClientJob(messageSent)
 				}
 
 			} else {
