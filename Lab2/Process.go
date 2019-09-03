@@ -21,6 +21,7 @@ var nReplies int
 
 var nPorts int
 
+var requestsQueue []int
 var ClientsConn []*net.UDPConn
 var SharedResourceConn *net.UDPConn
 var ServerConn *net.UDPConn
@@ -94,7 +95,7 @@ func doServerJob() {
 		if myState == "HELD" ||
 			( myState == "WANTED" && ( messageLogicalClock < logicalClock ||
 				( messageLogicalClock == logicalClock && messageId < myID ))) {
-
+			requestsQueue = append(requestsQueue, messageId)
 		} else {
 			reply.Id = myID
 			reply.LogicalClock = logicalClock
@@ -140,6 +141,14 @@ func doClientJob(request RequestReplyStruct) {
 	time.Sleep(time.Second * 1)
 
 	setState("RELEASED")
+	for _, element := range requestsQueue {
+		reply.Type = "reply"
+		jsonReply, err := json.Marshal(reply)
+		CheckError(err)
+		_, err = ClientsConn[element-1].Write(jsonReply)
+		CheckError(err)
+	}
+	requestsQueue = make([]int, 0)
 }
 
 func initConnections() {
