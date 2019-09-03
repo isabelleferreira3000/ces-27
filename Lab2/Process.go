@@ -15,13 +15,25 @@ import (
 var logicalClock int
 var myID int
 var myPort string
+var myState string
+
+var nReplies int
 
 var nPorts int
 
 var ClientsConn []*net.UDPConn
+var SharedResourceConn *net.UDPConn
 var ServerConn *net.UDPConn
 
 var ch = make(chan string)
+
+type RequestReplyStruct struct {
+	Type string
+	Id int
+	LogicalClock int
+}
+var request RequestReplyStruct
+var reply RequestReplyStruct
 
 type MessageStruct struct {
 	Id int
@@ -46,6 +58,11 @@ func CheckError(err error) {
 	}
 }
 
+func setState(newState string) {
+	myState = newState
+	fmt.Println("Estado:", myState)
+}
+
 func readInput(ch chan string) {
 	reader := bufio.NewReader(os.Stdin)
 	for {
@@ -60,22 +77,44 @@ func doServerJob() {
 	n, _, err := ServerConn.ReadFromUDP(buf)
 	CheckError(err)
 
-	var messageReceived MessageStruct
+	var messageReceived RequestReplyStruct
 	err = json.Unmarshal(buf[:n], &messageReceived)
 	CheckError(err)
 
 	fmt.Println("Received", messageReceived)
-	//otherProcessID := messageReceived.Id
-	otherProcessLogicalClock := messageReceived.LogicalClock
-	//otherProcessText := messageReceived.Text
+	messageType := messageReceived.Type
+	messageLogicalClock := messageReceived.LogicalClock
+	messageId := messageReceived.Id
 
 	// updating clocks
-	logicalClock = max(otherProcessLogicalClock, logicalClock) + 1
+	logicalClock = max(messageLogicalClock, logicalClock) + 1
 	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
+
+	if messageType == "request" {
+		if myState == "HELD" ||
+			( myState == "WANTED" && ( messageLogicalClock < logicalClock ||
+				( messageLogicalClock == logicalClock && messageId < myID ))) {
+
+		} else {
+			reply.Id = myID
+			reply.LogicalClock = logicalClock
+			reply.Type = "reply"
+
+			jsonReply, err := json.Marshal(reply)
+			CheckError(err)
+			_, err = ClientsConn[messageId-1].Write(jsonReply)
+			CheckError(err)
+		}
+
+	} else if messageType == "reply" {
+		nReplies++
+	} else {
+		fmt.Println("Error in message type received: neither request nor reply!")
+	}
 }
 
-func doClientJob(messageSent MessageStruct) {
-	jsonRequest, err := json.Marshal(messageSent)
+func doClientJob(request RequestReplyStruct) {
+	jsonRequest, err := json.Marshal(request)
 	CheckError(err)
 
 	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
@@ -84,7 +123,23 @@ func doClientJob(messageSent MessageStruct) {
 			CheckError(err)
 		}
 	}
+
+	fmt.Println("Esperando N-1 respostas")
+	for nReplies != nPorts-1 {}
+	nReplies = 0
+	setState("HELD")
+
+	messageSent.LogicalClock = logicalClock
+	messageSent.Id = myID
+
+	jsonMessage, err := json.Marshal(messageSent)
+	CheckError(err)
+	_, err = SharedResourceConn.Write(jsonMessage)
+	CheckError(err)
+
 	time.Sleep(time.Second * 1)
+
+	setState("RELEASED")
 }
 
 func initConnections() {
@@ -118,10 +173,22 @@ func initConnections() {
 		ClientsConn = append(ClientsConn, auxConn)
 		CheckError(err)
 	}
+
+	ServerAddr, err = net.ResolveUDPAddr("udp","127.0.0.1" + ":10001")
+	CheckError(err)
+
+	LocalAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:0")
+	CheckError(err)
+
+	SharedResourceConn, err = net.DialUDP("udp", LocalAddr, ServerAddr)
+	CheckError(err)
+
 }
 
 func main() {
 	initConnections()
+	setState("RELEASED")
+	nReplies = 0
 
 	defer ServerConn.Close()
 	for i := 0; i < nPorts; i++ {
@@ -132,9 +199,9 @@ func main() {
 
 	go readInput(ch)
 
-	go doServerJob()
-
 	for {
+		go doServerJob()
+
 		select {
 		case textReceived, valid := <-ch:
 			if valid {
@@ -145,11 +212,21 @@ func main() {
 				if textReceived == myIDString {
 					fmt.Println("logicalClock atualizado:", logicalClock)
 				} else {
-					messageSent.Id = myID
-					messageSent.LogicalClock = logicalClock
 					messageSent.Text = textReceived
-					fmt.Println("Mensagem enviado:", messageSent)
-					go doClientJob(messageSent)
+
+					// updating my clock
+					logicalClock++
+					fmt.Println("logicalClock atualizado:", logicalClock)
+
+					setState("WANTED")
+					fmt.Println("Multicast request to all processes")
+
+					request.Id = myID
+					request.LogicalClock = logicalClock
+					request.Type = "request"
+					fmt.Println("Request enviado:", request)
+
+					go doClientJob(request)
 				}
 
 			} else {
