@@ -60,12 +60,17 @@ func doServerJob() {
 	n, _, err := ServerConn.ReadFromUDP(buf)
 	CheckError(err)
 
-	aux := string(buf[0:n])
-	otherLogicalClock, err := strconv.Atoi(aux)
+	var messageReceived MessageStruct
+	err = json.Unmarshal(buf[:n], &messageReceived)
 	CheckError(err)
 
-	fmt.Println("Received", otherLogicalClock)
-	logicalClock = max(otherLogicalClock, logicalClock) + 1
+	fmt.Println("Received", messageReceived)
+	//otherProcessID := messageReceived.Id
+	otherProcessLogicalClock := messageReceived.LogicalClock
+	//otherProcessText := messageReceived.Text
+
+	// updating clocks
+	logicalClock = max(otherProcessLogicalClock, logicalClock) + 1
 	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 }
 
