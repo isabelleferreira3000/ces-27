@@ -78,36 +78,6 @@ func useCS(){
 	fmt.Println("Sai da CS")
 }
 
-func multicastRequests() {
-	fmt.Println("Multicast request to all processes")
-	fmt.Println("Request enviado:", request)
-	jsonRequest, err := json.Marshal(request)
-	CheckError(err)
-
-	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
-		if otherProcessID != myID {
-			_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
-			CheckError(err)
-		}
-	}
-}
-
-func waitReplies() {
-	fmt.Println("Esperando N-1 respostas")
-	for nReplies != nPorts-1 {}
-	nReplies = 0
-}
-
-func replyRequests(){
-	for _, element := range requestsQueue {
-		jsonReply, err := json.Marshal(reply)
-		CheckError(err)
-		_, err = ClientsConn[element-1].Write(jsonReply)
-		CheckError(err)
-	}
-	requestsQueue = make([]int, 0)
-}
-
 func readInput(ch chan string) {
 	reader := bufio.NewReader(os.Stdin)
 	for {
@@ -129,21 +99,21 @@ func doServerJob() {
 	fmt.Println("Received", messageReceived)
 	messageType := messageReceived.Type
 	messageLogicalClock := messageReceived.LogicalClock
-	messageId := messageReceived.Id
 
 	// updating clocks
 	logicalClock = max(messageLogicalClock, logicalClock) + 1
 	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
 
 	if messageType == "request" {
+		messageId := messageReceived.Id
+
 		if myState == "HELD" ||
 			( myState == "WANTED" && ( messageLogicalClock < logicalClock ||
 				( messageLogicalClock == logicalClock && messageId < myID ))) {
 			requestsQueue = append(requestsQueue, messageId)
+
 		} else {
-			reply.Id = myID
 			reply.LogicalClock = logicalClock
-			reply.Type = "reply"
 
 			jsonReply, err := json.Marshal(reply)
 			CheckError(err)
@@ -153,20 +123,40 @@ func doServerJob() {
 
 	} else if messageType == "reply" {
 		nReplies++
-	} else {
-		fmt.Println("Error in message type received: neither request nor reply!")
 	}
 }
 
 func doClientJob(request RequestReplyStruct) {
-	multicastRequests()
-	waitReplies()
+	// multicast requests
+	fmt.Println("Multicast request to all processes")
+	fmt.Println("Request enviado:", request)
+	jsonRequest, err := json.Marshal(request)
+	CheckError(err)
+
+	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
+		if otherProcessID != myID {
+			_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
+			CheckError(err)
+		}
+	}
+
+	// wait replies
+	fmt.Println("Esperando N-1 respostas")
+	for nReplies != nPorts-1 {}
+	nReplies = 0
 
 	setState("HELD")
 	useCS()
 	setState("RELEASED")
 
-	replyRequests()
+	// reply requests
+	for _, element := range requestsQueue {
+		jsonReply, err := json.Marshal(reply)
+		CheckError(err)
+		_, err = ClientsConn[element-1].Write(jsonReply)
+		CheckError(err)
+	}
+	requestsQueue = make([]int, 0)
 }
 
 func initConnections() {
@@ -246,7 +236,6 @@ func main() {
 				if myState == "WANTED" || myState == "HELD" {
 					fmt.Println(textReceived, "invalido")
 				} else {
-					// Clients
 					if textReceived != myIDString {
 						messageSent.Text = textReceived
 
