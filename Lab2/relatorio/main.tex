@@ -55,16 +55,14 @@ isabelle.ferreira3000@gmail.com}
 \maketitle
 
 \begin{abstract}
-Esse relatório documenta a implementação da simulação de processos rodando e trocando seus relógios lógicos entre si (Logical Clock definido por Lamport). Esses relógios foram tanto escalares quanto vetoriais.
+Esse relatório documenta a implementação do algoritmo de Ricart-Agrawala, um algoritmo de exclusão mútua para sistemas distribuídos.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Relógio lógico, Relógio lógico escalar, Relógio lógico vetorial, algoritmo de Lamport
+Algoritmo de Ricart-Agrawala, exclusão mútua, Relógio lógico vetorial, sistemas distribuídos
 \end{IEEEkeywords}
 
 \section{Implementação}
-
-	\subsection{Tarefa 1: Relógio Lógico Escalar}
 	
 	A primeira etapa se tratou da implementação da simulação para o Relógio Lógico Escalar de Lamport, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade. Essa implementação foi feita de forma bastante análoga à maneira das dicas fornecidas no roteiro.
 	
@@ -191,8 +189,6 @@ func doClientJob(otherProcessID int, logicalClock int) {
 }
 \end{lstlisting}
 
-	\subsection{Tarefa 2: Relógio Lógico Vetorial}
-
 	A segunda etapa se tratou da implementação da simulação para o Relógio Lógico Vetorial, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade. Essa implementação foi feita de forma bastante análoga à da Tarefa 1.
 	
 	As principais alterações na implementação foram:
@@ -229,12 +225,12 @@ Como as principais alterações foram pequenas e já foram descritas acima, não
 
 	Como esses resultados, conforme na Figura \ref{tarefa1-testeslide}, foram exatamente os esperados de acordo com os slides da aula, tem-se que esse teste foi satisfatório.
 	
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.45]{imagens/tarefa1-testeslide.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 3 processos.}.
-\label{tarefa1-testeslide}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.45]{imagens/tarefa1-testeslide.png}}
+%\caption{Exemplo do funcionamento da Tarefa 1 para 3 processos.}.
+%\label{tarefa1-testeslide}
+%\end{figure}
 	
 	Outro teste executado foi o apresentado nas Figuras \ref{tarefa1-testecriado-1} e \ref{tarefa1-testecriado-2}. Essas duas figuras apresentam o mesmo teste, dessa vez para quatro processos, sendo a Figura \ref{tarefa1-testecriado-1} referente aos processos 1 e 3, e a Figura \ref{tarefa1-testecriado-2} aos processos 2 e 4. Os eventos aconteceram da seguinte maneira:
 	
@@ -253,19 +249,19 @@ Como as principais alterações foram pequenas e já foram descritas acima, não
 \item $P_3$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 11 e 12, respectivamente.
 \end{itemize}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-1.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
-\label{tarefa1-testecriado-1}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-1.png}}
+%\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
+%\label{tarefa1-testecriado-1}
+%\end{figure}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-2.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 2 e 4.}.
-\label{tarefa1-testecriado-2}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-2.png}}
+%\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 2 e 4.}.
+%\label{tarefa1-testecriado-2}
+%\end{figure}
 
 	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa 1 foi feita corretamente.
 
@@ -284,19 +280,19 @@ Como as principais alterações foram pequenas e já foram descritas acima, não
 
 	Como esses resultados, conforme nas Figuras \ref{tarefa2-testeslide-1} e \ref{tarefa2-testeslide-2}, foram exatamente os esperados de acordo com os slides da aula, tem-se que esse teste foi satisfatório.
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testeslide-1.png}}
-\caption{Exemplo do funcionamento da Tarefa 2 para 3 processos. Tela dos processos 1 e 3.}.
-\label{tarefa2-testeslide-1}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testeslide-1.png}}
+%\caption{Exemplo do funcionamento da Tarefa 2 para 3 processos. Tela dos processos 1 e 3.}.
+%\label{tarefa2-testeslide-1}
+%\end{figure}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testeslide-2.png}}
-\caption{Exemplo do funcionamento da Tarefa 2 para 3 processos. Tela do processo 2.}.
-\label{tarefa2-testeslide-2}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testeslide-2.png}}
+%\caption{Exemplo do funcionamento da Tarefa 2 para 3 processos. Tela do processo 2.}.
+%\label{tarefa2-testeslide-2}
+%\end{figure}
 
 	Outro teste executado foi o apresentado nas Figuras \ref{tarefa1-testecriado-1} e \ref{tarefa1-testecriado-2}. Essas duas figuras apresentam o mesmo teste, dessa vez para quatro processos, sendo a Figura \ref{tarefa1-testecriado-1} referente aos processos 1 e 2, e a Figura \ref{tarefa1-testecriado-2} aos processos 3 e 4. Os eventos aconteceram da seguinte maneira:
 	
@@ -315,19 +311,19 @@ Como as principais alterações foram pequenas e já foram descritas acima, não
 \item $P_3$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para (0, 6, 6, 0) e (7, 6, 6, 7), respectivamente.
 \end{itemize}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testecriado-1.png}}
-\caption{Exemplo do funcionamento da Tarefa 2 para 4 processos. Tela dos processos 1 e 2.}.
-\label{tarefa1-testecriado-1}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testecriado-1.png}}
+%\caption{Exemplo do funcionamento da Tarefa 2 para 4 processos. Tela dos processos 1 e 2.}.
+%\label{tarefa1-testecriado-1}
+%\end{figure}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testecriado-2.png}}
-\caption{Exemplo do funcionamento da Tarefa 2 para 4 processos. Tela dos processos 3 e 4.}.
-\label{tarefa1-testecriado-2}
-\end{figure}
+%\begin{figure}[H]
+%\centering
+%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testecriado-2.png}}
+%\caption{Exemplo do funcionamento da Tarefa 2 para 4 processos. Tela dos processos 3 e 4.}.
+%\label{tarefa1-testecriado-2}
+%\end{figure}
 
 	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa 2 foi feita corretamente.
 	
