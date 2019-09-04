@@ -36,6 +36,7 @@ func doServerJob() {
 	CheckError(err)
 
 	fmt.Println("Received", messageReceived)
+	fmt.Println(messageReceived.Text)
 }
 
 func main() {

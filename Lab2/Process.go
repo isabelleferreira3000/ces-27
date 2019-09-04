@@ -13,6 +13,7 @@ import (
 
 // global variables
 var logicalClock int
+var myTimestamp int
 var myID int
 var myIDString string
 var myPort string
@@ -32,6 +33,7 @@ var ch = make(chan string)
 type RequestReplyStruct struct {
 	Type string
 	Id int
+	Timestamp int
 	LogicalClock int
 }
 var request RequestReplyStruct
@@ -86,61 +88,7 @@ func readInput(ch chan string) {
 	}
 }
 
-func doServerJob() {
-	buf := make([]byte, 1024)
-
-	n, _, err := ServerConn.ReadFromUDP(buf)
-	CheckError(err)
-
-	var messageReceived RequestReplyStruct
-	err = json.Unmarshal(buf[:n], &messageReceived)
-	CheckError(err)
-
-	fmt.Println("Received", messageReceived)
-	messageType := messageReceived.Type
-	messageLogicalClock := messageReceived.LogicalClock
-
-	// updating clocks
-	logicalClock = max(messageLogicalClock, logicalClock) + 1
-	fmt.Printf("logicalClock atualizado: %d \n", logicalClock)
-
-	if messageType == "request" {
-		messageId := messageReceived.Id
-
-		if myState == "HELD" ||
-			( myState == "WANTED" && ( messageLogicalClock < logicalClock ||
-				( messageLogicalClock == logicalClock && messageId < myID ))) {
-			requestsQueue = append(requestsQueue, messageId)
-
-		} else {
-			reply.LogicalClock = logicalClock
-
-			jsonReply, err := json.Marshal(reply)
-			CheckError(err)
-			_, err = ClientsConn[messageId-1].Write(jsonReply)
-			CheckError(err)
-		}
-
-	} else if messageType == "reply" {
-		nReplies++
-	}
-}
-
-func doClientJob(request RequestReplyStruct) {
-	// multicast requests
-	fmt.Println("Multicast request to all processes")
-	fmt.Println("Request enviado:", request)
-	jsonRequest, err := json.Marshal(request)
-	CheckError(err)
-
-	for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
-		if otherProcessID != myID {
-			_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
-			CheckError(err)
-		}
-	}
-
-	// wait replies
+func waitReplies() {
 	fmt.Println("Esperando N-1 respostas")
 	for nReplies != nPorts-1 {}
 	nReplies = 0
@@ -151,6 +99,10 @@ func doClientJob(request RequestReplyStruct) {
 
 	// reply requests
 	for _, element := range requestsQueue {
+		logicalClock++
+		reply.LogicalClock = logicalClock
+
+		fmt.Println("Reply enviado:", reply.LogicalClock, "reply")
 		jsonReply, err := json.Marshal(reply)
 		CheckError(err)
 		_, err = ClientsConn[element-1].Write(jsonReply)
@@ -159,12 +111,74 @@ func doClientJob(request RequestReplyStruct) {
 	requestsQueue = make([]int, 0)
 }
 
+func doServerJob() {
+	buf := make([]byte, 1024)
+
+	n, _, err := ServerConn.ReadFromUDP(buf)
+	CheckError(err)
+
+	var messageReceived RequestReplyStruct
+	err = json.Unmarshal(buf[:n], &messageReceived)
+	CheckError(err)
+
+	messageType := messageReceived.Type
+	messageLogicalClock := messageReceived.LogicalClock
+	messageTimestamp := messageReceived.Timestamp
+
+	// updating clocks
+	logicalClock = max(messageLogicalClock, logicalClock) + 1
+
+	if messageType == "request" {
+		fmt.Println("Request recebido:",
+			messageReceived.LogicalClock, ", <", messageReceived.Timestamp, ",", messageReceived.Id, ">")
+		fmt.Println("logicalClock atualizado:", logicalClock)
+		messageId := messageReceived.Id
+
+		if myState == "HELD" ||
+			( myState == "WANTED" && ( messageTimestamp < myTimestamp ||
+				( messageTimestamp == myTimestamp && messageId < myID ))) {
+			requestsQueue = append(requestsQueue, messageId)
+
+		} else {
+			// updating clocks
+			logicalClock++
+			reply.LogicalClock = logicalClock
+
+			jsonReply, err := json.Marshal(reply)
+			CheckError(err)
+			_, err = ClientsConn[messageId-1].Write(jsonReply)
+			CheckError(err)
+			fmt.Println("Reply enviado:", reply.LogicalClock, "reply")
+			fmt.Println("logicalClock atualizado:", logicalClock)
+		}
+
+	} else if messageType == "reply" {
+		fmt.Println("Reply recebido:", messageReceived.LogicalClock, "reply")
+		fmt.Println("logicalClock atualizado:", logicalClock)
+		nReplies++
+	}
+}
+
+func doClientJob(request RequestReplyStruct, otherProcessID int) {
+	// updating my clock
+	logicalClock++
+	fmt.Println("logicalClock atualizado:", logicalClock)
+
+	request.LogicalClock = logicalClock
+
+	fmt.Println("Request enviado:", request.LogicalClock, ", <", request.Timestamp, ",", request.Id, ">")
+	jsonRequest, err := json.Marshal(request)
+	CheckError(err)
+
+	_, err = ClientsConn[otherProcessID - 1].Write(jsonRequest)
+	CheckError(err)
+}
+
 func initConnections() {
 	nPorts = len(os.Args) - 2
 
 	// my process
 	nReplies = 0
-	logicalClock = 0
 	auxMyID, err := strconv.Atoi(os.Args[1])
 	CheckError(err)
 	myID = auxMyID
@@ -208,6 +222,7 @@ func main() {
 	initConnections()
 
 	// set initial values
+	logicalClock = 0
 	messageSent.Id = myID
 	request.Id = myID
 	request.Type = "request"
@@ -232,20 +247,26 @@ func main() {
 				if myState == "WANTED" || myState == "HELD" {
 					fmt.Println(textReceived, "invalido")
 				} else {
-					// updating my clock
-					logicalClock++
-					fmt.Println("logicalClock atualizado:", logicalClock)
 
 					if textReceived != myIDString {
 						messageSent.Text = textReceived
 
+						setState("WANTED")
+						myTimestamp = logicalClock
+						request.Timestamp = myTimestamp
+
+						// multicast requests
+						fmt.Println("Multicast request to all processes")
+						for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
+							if otherProcessID != myID {
+								go doClientJob(request, otherProcessID)
+							}
+						}
+						go waitReplies()
+					} else {
 						// updating my clock
 						logicalClock++
 						fmt.Println("logicalClock atualizado:", logicalClock)
-
-						setState("WANTED")
-						request.LogicalClock = logicalClock
-						go doClientJob(request)
 					}
 				}
 
