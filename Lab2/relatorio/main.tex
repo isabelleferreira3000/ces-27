@@ -42,7 +42,7 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Relatório da Atividade 1: \\ Logical Clock\\
+\title{Relatório da Atividade 2: \\ Exclusão Mútua\\
 }
 
 \author{\IEEEauthorblockN{Isabelle Ferreira de Oliveira}
@@ -64,49 +64,36 @@ Algoritmo de Ricart-Agrawala, exclusão mútua, Relógio lógico vetorial, siste
 
 \section{Implementação}
 	
-	A primeira etapa se tratou da implementação da simulação para o Relógio Lógico Escalar de Lamport, segundo o algoritmo descrito nos slides da aula e conforme o solicitado no roteiro da atividade. Essa implementação foi feita de forma bastante análoga à maneira das dicas fornecidas no roteiro.
+	A implementação do recurso compartilhado se tratou principalmente da utilização do código disponibilizado no roteiro do laboratório. Dentro do loop principal, foi colocada a função de servidor, cuja implementação era simplesmente imprimir na tela qualquer mensagem recebida pela porta :10001.
 	
-	Pode-se começar analisando-se a função main(), cujo código foi apresentado abaixo.
+	Abaixo encontra-se os códigods da função main() e da função doServerJob().
 	
 \begin{lstlisting}
 func main() {
-	initConnections()
-
-	// close connections when it's over
-	defer ServConn.Close()
-	for i := 0; i < nPorts; i++ {
-		defer AllConn[i].Close()
-	}
-
-	// read "processID" from user input
-	go readInput(ch)
+	Address, err := net.ResolveUDPAddr("udp", ":10001")
+	Connection, err = net.ListenUDP("udp", Address)
+	defer Connection.Close()
 
 	for {
-		// Server
-		go doServerJob()
-		
-		select {
-		case processID, valid := <-ch:
-			if valid {
-				// update clock
-				logicalClock++
-				
-				//Client
-				if processID == myID {
-					fmt.Println("logicalClock atualizado:", logicalClock)
-				} else {
-					fmt.Println("logicalClock enviado:", logicalClock)
-					go doClientJob(processID, logicalClock)
-				}
-
-			} else {
-				fmt.Println("Channel closed!")
-			}
-		default:
-			time.Sleep(time.Second * 1)
-		}
+		doServerJob()
 	}
+}
 \end{lstlisting}
+
+\begin{lstlisting}
+func doServerJob() {
+	buf := make([]byte, 1024)
+
+	n, _, err := Connection.ReadFromUDP(buf)
+	err = json.Unmarshal(buf[:n], &messageReceived)
+
+	fmt.Println(messageReceived.Text)
+}
+\end{lstlisting}
+
+	A mensagem recebida era da forma de struct, com os atributos de id do processo que enviou a mensagem, o relógio lógico do processo que enviou a mensagem e, por fim, o texto a ser impresso no terminal.
+
+	Vale ressaltar também que, para esse código e todos os outros dessa atividade, sempre após a setagem da variável \textit{err}, referente a um possível erro advindo de algumas funções, também era chamada a função CheckError(err), que imprime o erro e interrompe o processo caso houvesse algum erro.
 
 	Na main(), primeiramente são iniciadas as conexões de servidores e clientes, a partir da chamada de initConnections(). Nessa função, também é iniciado o relógio lógico desse processo em questão, além de serem setados seu ID, e as portas de todos os processos. 
 	
