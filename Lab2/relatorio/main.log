@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  4 SEP 2019 19:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  4 SEP 2019 19:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -897,7 +897,17 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip49
 )
-(./main.aux)
+(./main.aux
+
+LaTeX Warning: Label `tarefa1-testecriado-1' multiply defined.
+
+
+LaTeX Warning: Label `tarefa1-testecriado-1' multiply defined.
+
+
+LaTeX Warning: Label `tarefa1-testecriado-1' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
@@ -1038,91 +1048,99 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 239.
 [2]
-LaTeX Font Info:    Try loading font information for U+msa on input line 245.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 240.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 242.
+ <imagens/ex1.png, id=176, 778.91pt x 389.455pt>
+File: imagens/ex1.png Graphic file (type png)
+ <use imagens/ex1.png>
+Package pdftex.def Info: imagens/ex1.png used on input line 250.
+(pdftex.def)             Requested size: 233.6748pt x 116.83739pt.
+
+<imagens/ex1-proc1-clean.png, id=177, 436.63126pt x 137.51375pt>
+File: imagens/ex1-proc1-clean.png Graphic file (type png)
+
+<use imagens/ex1-proc1-clean.png>
+Package pdftex.def Info: imagens/ex1-proc1-clean.png used on input line 259.
+(pdftex.def)             Requested size: 218.3151pt x 68.7567pt.
+
+<imagens/ex1-proc2-clean.png, id=178, 362.35374pt x 143.53625pt>
+File: imagens/ex1-proc2-clean.png Graphic file (type png)
+
+<use imagens/ex1-proc2-clean.png>
+Package pdftex.def Info: imagens/ex1-proc2-clean.png used on input line 266.
+(pdftex.def)             Requested size: 181.17642pt x 71.76794pt.
+
+<imagens/ex1-proc3-clean.png, id=179, 410.53375pt x 112.42pt>
+File: imagens/ex1-proc3-clean.png Graphic file (type png)
+
+<use imagens/ex1-proc3-clean.png>
+Package pdftex.def Info: imagens/ex1-proc3-clean.png used on input line 273.
+(pdftex.def)             Requested size: 205.26637pt x 56.20985pt.
+
+<imagens/ex1-shared-clean.png, id=180, 372.39125pt x 158.5925pt>
+File: imagens/ex1-shared-clean.png Graphic file (type png)
+
+<use imagens/ex1-shared-clean.png>
+Package pdftex.def Info: imagens/ex1-shared-clean.png used on input line 280.
+(pdftex.def)             Requested size: 186.19516pt x 79.29604pt.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 3 undefined on input l
+ine 285.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 3 undefined on input l
+ine 285.
+
+LaTeX Font Info:    Try loading font information for U+msa on input line 288.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 245.
+LaTeX Font Info:    Try loading font information for U+msb on input line 288.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 330.
+(babel)             in language  on input line 313.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 330.
- [3]
-Underfull \hbox (badness 1472) in paragraph at lines 330--331
-[]\T1/ptm/m/n/10 as men-sa-gens (structs) tro-ca-das en-tre pro-ces-sos fo-
- []
-
+(babel)             in language  on input line 318.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 336.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 338.
-
-LaTeX Warning: Reference `tarefa1-testeslide' on page 4 undefined on input line
- 342.
-
-
-LaTeX Warning: Reference `tarefa1-testeslide' on page 4 undefined on input line
- 351.
-
-
-LaTeX Warning: Reference `tarefa1-testecriado-1' on page 4 undefined on input l
-ine 360.
-
-
-LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
-ine 360.
-
-
-LaTeX Warning: Reference `tarefa1-testecriado-1' on page 4 undefined on input l
-ine 360.
-
-
-LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
-ine 360.
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 393.
+(babel)             in language  on input line 318.
+ [3 <./imagens/ex1.png> <./imagens/ex1-proc1-clean.png> <./imagens/ex1-proc2-cl
+ean.png> <./imagens/ex1-proc3-clean.png> <./imagens/ex1-shared-clean.png>]
 
 LaTeX Warning: Reference `tarefa2-testeslide-1' on page 4 undefined on input li
-ne 397.
+ne 319.
 
 
 LaTeX Warning: Reference `tarefa2-testeslide-2' on page 4 undefined on input li
-ne 397.
+ne 319.
 
 
 LaTeX Warning: Reference `tarefa2-testeslide-1' on page 4 undefined on input li
-ne 406.
+ne 328.
 
 
 LaTeX Warning: Reference `tarefa2-testeslide-2' on page 4 undefined on input li
-ne 406.
+ne 328.
 
-
-LaTeX Warning: Reference `tarefa1-testecriado-1' on page 4 undefined on input l
-ine 422.
-
-
-LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
-ine 422.
-
-
-LaTeX Warning: Reference `tarefa1-testecriado-1' on page 4 undefined on input l
-ine 422.
+<imagens/ex2.png, id=197, 958.58125pt x 461.725pt>
+File: imagens/ex2.png Graphic file (type png)
+ <use imagens/ex2.png>
+Package pdftex.def Info: imagens/ex2.png used on input line 332.
+(pdftex.def)             Requested size: 239.64473pt x 115.43097pt.
 
 
 LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
-ine 422.
+ine 344.
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 431.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 431.
-[4]
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
+ine 344.
+
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1134,31 +1152,32 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 464.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 386.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 464.
+(babel)             in language  on input line 386.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 464.
-[5
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 464.
+(babel)             in language  on input line 386.
+[4 <./imagens/ex2.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 386.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 464.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 464.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 386.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 386.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9DFB4E23CC8363499CACC2FF79EE1694;356.
+(rerunfilecheck)             Checksum: 3B51E630E68AFB1CF47197EBFD951DB7;354.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 464.
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 386.
  ) 
 Here is how much of TeX's memory you used:
- 10985 strings out of 493029
- 154799 string characters out of 6136235
- 313068 words of memory out of 5000000
- 14181 multiletter control sequences out of 15000+600000
+ 10960 strings out of 493029
+ 154746 string characters out of 6136235
+ 313357 words of memory out of 5000000
+ 14193 multiletter control sequences out of 15000+600000
  107166 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,8n,40p,579b,1844s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1170,10 +1189,10 @@ pe1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 109075 bytes).
+Output written on main.pdf (4 pages, 216337 bytes).
 PDF statistics:
- 309 PDF objects out of 1000 (max. 8388607)
- 291 compressed objects within 3 object streams
- 193 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 265 PDF objects out of 1000 (max. 8388607)
+ 242 compressed objects within 3 object streams
+ 148 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 
