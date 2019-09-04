@@ -252,80 +252,73 @@ func useCS(){
 \label{ex1}
 \end{figure}
 
-	Foi simulada essa situação acima com o código implementado no laboratório, tendo os resultados apresentados nas Figuras.
+	Foi simulada essa situação acima com o código implementado no laboratório, tendo os resultados apresentados nas Figuras de \ref{ex1-proc1-clean} a \ref{ex1-shared-clean}. Na simulação, ao invés de o P3 fazer a requisição, é o P2 a faz, mas isso não prejudica o teste.
 	
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.5]{imagens/ex1-proc1-clean.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
-\label{tarefa1-testecriado-1}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 1.}.
+\label{ex1-proc1-clean}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.5]{imagens/ex1-proc2-clean.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
-\label{tarefa1-testecriado-1}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 2.}.
+\label{ex1-proc2-clean}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.5]{imagens/ex1-proc3-clean.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
-\label{tarefa1-testecriado-1}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 3.}.
+\label{ex1-proc3-clean}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.5]{imagens/ex1-shared-clean.png}}
-\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 1 e 3.}.
-\label{tarefa1-testecriado-1}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do SharedResource.}.
+\label{ex1-shared-clean}
 \end{figure}
 	
-	Outro teste executado foi o apresentado nas Figuras \ref{tarefa1-testecriado-1} e \ref{tarefa1-testecriado-2}. Essas duas figuras apresentam o mesmo teste, dessa vez para quatro processos, sendo a Figura \ref{tarefa1-testecriado-1} referente aos processos 1 e 3, e a Figura \ref{tarefa1-testecriado-2} aos processos 2 e 4. Os eventos aconteceram da seguinte maneira:
+	A fim de entender melhor cada estágio do funcionamento, foram realizados os mesmos testes novamente, agora com prints de debug. Dessa forma, esses resultados estão apresentados nas Figuras de \ref{ex1-proc1} a \ref{ex1-shared}.
 	
-\begin{itemize}
-\item $P_1$ realizou seus três primeiros eventos, incrementando seu relógio lógico para 3;
-\item $P_2$ realizou seu primeiro evento, incrementando seu relógio lógico para 1;
-\item $P_4$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 1 e 4, respectivamente;
-\item $P_4$ realizou cinco eventos, incrementando seu relógio lógico para 6;
-\item $P_4$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 7 e 8, respectivamente;
-\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para 2 e 3, respectivamente;
-\item $P_2$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 3 e 9, respectivamente;
-\item $P_2$ mandou uma mensagem para $P_4$, incrementando seus relógios lógicos para 4 e 8, respectivamente;
-\item $P_2$ realizou um evento, incrementando seu relógio lógico para 5;
-\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para 6 e 7, respectivamente;
-\item $P_3$ realizou três eventos, incrementando seu relógio lógico para 10;
-\item $P_3$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para 11 e 12, respectivamente.
-\end{itemize}
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc1.png}}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 1.}.
+\label{ex1-proc1}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc2.png}}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 2.}.
+\label{ex1-proc2}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc3.png}}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 3.}.
+\label{ex1-proc3}
+\end{figure}
 
-%\begin{figure}[H]
-%\centering
-%\centerline{\includegraphics[scale=0.4]{imagens/tarefa1-testecriado-2.png}}
-%\caption{Exemplo do funcionamento da Tarefa 1 para 4 processos. Tela dos processos 2 e 4.}.
-%\label{tarefa1-testecriado-2}
-%\end{figure}
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.5]{imagens/ex1-shared.png}}
+\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do SharedResource.}.
+\label{ex1-shared}
+\end{figure}
 
-	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa 1 foi feita corretamente.
+	Como esses resultados foram condizentes com os resultados esperados, leva-se a perceber que a implementação da Tarefa foi feita corretamente. Mas, antes de concluir-se algo, foi-se realizado um segundo teste.
 
 \subsection{Teste 2}
 
 	Este foi o caso com processos solicitando a CS "simultaneamente", sugerido no roteiro do laboratório. O esquema do resultado esperado foi apresentado na Figura \ref{ex2}.
-
-	A implementação também mostrou-se correta, uma vez que os resultados dos testes e das simulações se mostraram condizentes com o esperado. Os testes foram exatamente os mesmos da Tarefa 1, com a mudança apenas do tipo de relógio lógico estava sendo enviado como mensagem.
 	
-	O primeiro teste executado foi apresentado nas Figuras \ref{tarefa2-testeslide-1} e \ref{tarefa2-testeslide-2}, e se tratava do exemplo apresentado nos slides da aula. Eram três processos ($P_1$, $P_2$ e $P_3$), e os acontecimentos se deram da seguinte maneira:
-	
-\begin{itemize}
-\item $P_1$ realizou seu primeiro evento, incrementando seu relógio lógico para (1, 0, 0);
-\item $P_3$ realizou seu primeiro evento, incrementando seu relógio lógico para (0, 0, 1);
-\item $P_1$ mandou uma mensagem para $P_2$, incrementando seus relógios lógicos para (2, 0, 0) e (2, 1, 0), respectivamente;
-\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para (2, 2, 0) e (2, 2, 2), respectivamente.
-\end{itemize}
-
-	Como esses resultados, conforme nas Figuras \ref{tarefa2-testeslide-1} e \ref{tarefa2-testeslide-2}, foram exatamente os esperados de acordo com os slides da aula, tem-se que esse teste foi satisfatório.
+	Análogo ao teste 1, na Figura \ref{ex2}, para P1, as setas azuis representam requests e as verdes, replies; e para P4, essa setas são rosas e cinzas, respectivamente. Nos requests, a mensagem enviada também é da forma "\textit{relógio lógico, < timestamp, id >}"; assim como no reply, que a forma também é "\textit{relógio lógico, 'reply'}". Além disso, nesse caso também a linha amarela representa o processo no estado WANTED; e a linha vermelha, no estado HELD, ou seja, na CS.
 
 \begin{figure}[H]
 \centering
@@ -334,45 +327,95 @@ func useCS(){
 \label{ex2}
 \end{figure}
 
-%\begin{figure}[H]
-%\centering
-%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testeslide-2.png}}
-%\caption{Exemplo do funcionamento da Tarefa 2 para 3 processos. Tela do processo 2.}.
-%\label{tarefa2-testeslide-2}
-%\end{figure}
+	Foi simulada essa situação acima com o código implementado no laboratório, tendo os resultados apresentados nas Figuras de \ref{ex2-proc1-clean} a \ref{ex2-shared-clean}. Durante o período na CS, também foi digitado mensagens no terminal dos processos, para que se verifisse o funcionamento da validação da mensagem. Assim, para essas mensagens, foi dado o feedback de mensagem inválida.
 
-	Outro teste executado foi o apresentado nas Figuras \ref{tarefa1-testecriado-1} e \ref{tarefa1-testecriado-2}. Essas duas figuras apresentam o mesmo teste, dessa vez para quatro processos, sendo a Figura \ref{tarefa1-testecriado-1} referente aos processos 1 e 2, e a Figura \ref{tarefa1-testecriado-2} aos processos 3 e 4. Os eventos aconteceram da seguinte maneira:
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc1-clean.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 1.}.
+\label{ex2-proc1-clean}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc2-clean.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 2.}.
+\label{ex2-proc2-clean}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc3-clean.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 3.}.
+\label{ex2-proc3-clean}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc4-clean.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 4.}.
+\label{ex2-proc4-clean}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc5-clean.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 5.}.
+\label{ex2-proc5-clean}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.5]{imagens/ex2-shared-clean.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do SharedResource.}.
+\label{ex2-shared-clean}
+\end{figure}
+
+	A fim de entender melhor cada estágio do funcionamento, foram realizados os mesmos testes novamente, agora com prints de debug. Dessa forma, esses resultados estão apresentados nas Figuras de \ref{ex2-proc1} a \ref{ex2-shared}. Como é difícil simular com exatidão os instantes dos envios de request dos processos simultaneamente, foi feito da seguinte forma: o processo P4 entra no estado WANTED durante o estado HELD do processo P1. Isso é um pouco diferente do apresentado na Figura \ref{ex2}, mas não prejudica os testes. Contudo, isso altera um pouco a ordem dos envios de mensagens, e, consequentemente, os valores relógios lógicos.
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc1.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 1.}.
+\label{ex2-proc1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc2.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 2.}.
+\label{ex2-proc2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc3.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 3.}.
+\label{ex2-proc3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc4.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 4.}.
+\label{ex2-proc4}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc5.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 5.}.
+\label{ex2-proc5}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\centerline{\includegraphics[scale=0.5]{imagens/ex2-shared.png}}
+\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do SharedResource.}.
+\label{ex2-shared}
+\end{figure}
 	
-\begin{itemize}
-\item $P_1$ realizou seus três primeiros eventos, incrementando seu relógio lógico para (3, 0, 0, 0);
-\item $P_2$ realizou seu primeiro evento, incrementando seu relógio lógico para (0, 1, 0, 0);
-\item $P_4$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para (4, 0, 0, 1) e (0, 0, 0, 1), respectivamente;
-\item $P_4$ realizou cinco eventos, incrementando seu relógio lógico para (0, 0, 0, 6);
-\item $P_4$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para (5, 0, 0, 7) e (0, 0, 0, 7), respectivamente;
-\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para (0, 2, 0, 0) e (0, 2, 1, 0), respectivamente;
-\item $P_2$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para (0, 3, 0, 0) e (6, 3, 0, 7), respectivamente;
-\item $P_2$ mandou uma mensagem para $P_4$, incrementando seus relógios lógicos para (0, 4, 0, 0) e (0, 4, 0, 8), respectivamente;
-\item $P_2$ realizou um evento, incrementando seu relógio lógico para (0, 5, 0, 0);
-\item $P_2$ mandou uma mensagem para $P_3$, incrementando seus relógios lógicos para (0, 6, 0, 0) e (0, 6, 2, 0), respectivamente;
-\item $P_3$ realizou três eventos, incrementando seu relógio lógico para (0, 6, 5, 0);
-\item $P_3$ mandou uma mensagem para $P_1$, incrementando seus relógios lógicos para (0, 6, 6, 0) e (7, 6, 6, 7), respectivamente.
-\end{itemize}
-
-%\begin{figure}[H]
-%\centering
-%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testecriado-1.png}}
-%\caption{Exemplo do funcionamento da Tarefa 2 para 4 processos. Tela dos processos 1 e 2.}.
-%\label{tarefa1-testecriado-1}
-%\end{figure}
-
-%\begin{figure}[H]
-%\centering
-%\centerline{\includegraphics[scale=0.4]{imagens/tarefa2-testecriado-2.png}}
-%\caption{Exemplo do funcionamento da Tarefa 2 para 4 processos. Tela dos processos 3 e 4.}.
-%\label{tarefa1-testecriado-2}
-%\end{figure}
-
-	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa 2 foi feita corretamente.
+	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa foi feita corretamente.
 	
 %\begin{thebibliography}{00}
 %\bibitem{roteiro} M. Maximo, ``Roteiro: Laboratório 12 - Deep Q-Learning''. Instituto Tecnológico de Aeronáutica, Departamento de Computação. CT-213, 2019.
