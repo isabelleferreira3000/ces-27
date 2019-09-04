@@ -63,6 +63,8 @@ Algoritmo de Ricart-Agrawala, exclusão mútua, Relógio lógico vetorial, siste
 \end{IEEEkeywords}
 
 \section{Implementação}
+
+\subsection{Recurso Compartilhado}
 	
 	A implementação do recurso compartilhado se tratou principalmente da utilização do código disponibilizado no roteiro do laboratório. Dentro do loop principal, foi colocada a função de servidor, cuja implementação era simplesmente imprimir na tela qualquer mensagem recebida pela porta :10001.
 	
@@ -94,9 +96,131 @@ func doServerJob() {
 	A mensagem recebida era da forma de struct, com os atributos de id do processo que enviou a mensagem, o relógio lógico do processo que enviou a mensagem e, por fim, o texto a ser impresso no terminal.
 
 	Vale ressaltar também que, para esse código e todos os outros dessa atividade, sempre após a setagem da variável \textit{err}, referente a um possível erro advindo de algumas funções, também era chamada a função CheckError(err), que imprime o erro e interrompe o processo caso houvesse algum erro.
+	
+\subsection{Processo}
 
 	Na main(), primeiramente são iniciadas as conexões de servidores e clientes, a partir da chamada de initConnections(). Nessa função, também é iniciado o relógio lógico desse processo em questão, além de serem setados seu ID, e as portas de todos os processos. 
 	
+\begin{lstlisting}
+func main() {
+	initConnections()
+	setState("RELEASED")
+
+	defer ServerConn.Close()
+	for i := 0; i < nPorts; i++ {
+		defer ClientsConn[i].Close()
+	}
+
+	go readInput(ch)
+	
+	for {
+		go doServerJob()
+		
+		select {
+		case textReceived, valid := <-ch:
+			if valid {
+				if myState == "WANTED" || myState == "HELD" {
+					fmt.Println(textReceived, "invalido")
+				} else {
+					if textReceived != myIDString {
+						messageSent.Text = textReceived
+
+						setState("WANTED")
+						myTimestamp = logicalClock
+						request.Timestamp = myTimestamp
+
+						for otherID := 1; otherID <= nPorts; otherID++ {
+							if otherID != myID {
+								go doClientJob(request, otherID)
+							}
+						}
+						go waitReplies()
+					} else {
+						// updating my clock
+						logicalClock++
+					}
+				}
+			} else {
+				fmt.Println("Channel closed!")
+			}
+		default:
+			time.Sleep(time.Second * 1)
+		}
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+func doServerJob() {
+	buf := make([]byte, 1024)
+
+	n, _, err := ServerConn.ReadFromUDP(buf)
+	var message RequestReplyStruct
+	err = json.Unmarshal(buf[:n], &message)
+
+	msgType := message.Type
+	msgLogicalClock := message.LogicalClock
+	msgTimestamp := message.Timestamp
+
+	// updating clocks
+	logicalClock = max(msgLogicalClock, logicalClock) + 1
+
+	if msgType == "request" {
+		msgId := message.Id
+
+		if myState == "HELD" ||
+			( myState == "WANTED" && ( msgTimestamp < myTimestamp ||
+				( msgTimestamp == myTimestamp && msgId < myID ))) {
+			requestsQueue = append(requestsQueue, msgId)
+
+		} else {
+			// updating clocks
+			logicalClock++
+			reply.LogicalClock = logicalClock
+
+			jsonReply, err := json.Marshal(reply)
+			_, err = CliConn[msgId-1].Write(jsonReply)
+		}
+
+	} else if msgType == "reply" {
+		nReplies++
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+func waitReplies() {
+	for nReplies != nPorts-1 {}
+	nReplies = 0
+
+	setState("HELD")
+	useCS()
+	setState("RELEASED")
+
+	// reply requests
+	for _, element := range requestsQueue {
+		logicalClock++
+		reply.LogicalClock = logicalClock
+		jsonReply, err := json.Marshal(reply)
+		_, err = ClientsConn[element-1].Write(jsonReply)
+	}
+	requestsQueue = make([]int, 0)
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+func useCS(){
+	fmt.Println("Entrei na CS")
+	messageSent.LogicalClock = logicalClock
+
+	jsonMessage, err := json.Marshal(messageSent)
+	_, err = SharedResourceConn.Write(jsonMessage)
+
+	time.Sleep(time.Second * 10)
+	fmt.Println("Sai da CS")
+}
+\end{lstlisting}	
+
 	Após isso, é iniciada uma thread para ler as entradas do usuário a partir da função readInput().
 	
 	Em seguida, é iniciado o loop de fazer o trabalho de servidor (ou seja, atualiza-se o relógio lógico caso chegue uma mensagem de outro processo, por meio da thread doServerJob()) e fica-se esperando uma mensagem do usuário no canal criado \textit{ch}.

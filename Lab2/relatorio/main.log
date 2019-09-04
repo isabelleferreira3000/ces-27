@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  4 SEP 2019 10:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  4 SEP 2019 10:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -897,14 +897,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip49
 )
-(./main.aux
-
-LaTeX Warning: Label `tarefa1-testecriado-1' multiply defined.
-
-
-LaTeX Warning: Label `tarefa1-testecriado-2' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
@@ -1019,44 +1012,115 @@ LaTeX Info: Redefining \nameref on input line 43.
 
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 65.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 71.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 67.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 73.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 107.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 100.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 142.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 142.
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (2.8996pt too wide) in paragraph at lines 205--206
+[][][][][][][][][]  
+ []
+
+LaTeX Font Info:    Try loading font information for U+msa on input line 231.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 107.
+LaTeX Font Info:    Try loading font information for U+msb on input line 231.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 135.
+(babel)             in language  on input line 259.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 135.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-
-]
-Underfull \hbox (badness 1472) in paragraph at lines 192--193
+(babel)             in language  on input line 259.
+ [2]
+Underfull \hbox (badness 1472) in paragraph at lines 316--317
 []\T1/ptm/m/n/10 as men-sa-gens (structs) tro-ca-das en-tre pro-ces-sos fo-
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 198.
+(babel)             in language  on input line 322.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 200.
+(babel)             in language  on input line 324.
+
+LaTeX Warning: Reference `tarefa1-testeslide' on page 3 undefined on input line
+ 328.
+
+
+LaTeX Warning: Reference `tarefa1-testeslide' on page 3 undefined on input line
+ 337.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-1' on page 3 undefined on input l
+ine 346.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 3 undefined on input l
+ine 346.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-1' on page 3 undefined on input l
+ine 346.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 3 undefined on input l
+ine 346.
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 223.
+(babel)             in language  on input line 347.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 223.
-[2]
+(babel)             in language  on input line 347.
+[3]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 255.
+(babel)             in language  on input line 379.
+
+
+LaTeX Warning: Reference `tarefa2-testeslide-1' on page 4 undefined on input li
+ne 383.
+
+
+LaTeX Warning: Reference `tarefa2-testeslide-2' on page 4 undefined on input li
+ne 383.
+
+
+LaTeX Warning: Reference `tarefa2-testeslide-1' on page 4 undefined on input li
+ne 392.
+
+
+LaTeX Warning: Reference `tarefa2-testeslide-2' on page 4 undefined on input li
+ne 392.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-1' on page 4 undefined on input l
+ine 408.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
+ine 408.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-1' on page 4 undefined on input l
+ine 408.
+
+
+LaTeX Warning: Reference `tarefa1-testecriado-2' on page 4 undefined on input l
+ine 408.
 
 
 ** Conference Paper **
@@ -1069,71 +1133,44 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 326.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 450.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 326.
+(babel)             in language  on input line 450.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 326.
-[3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 326.
+(babel)             in language  on input line 450.
+[4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 450.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 326.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 326.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 450.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 450.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 9DFB4E23CC8363499CACC2FF79EE1694;356.
 
 
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 84FBCC6A1773AE87398BFA8716D4DEFB;404
-(rerunfilecheck)             After:  4C2C04D25C1338B36675AC3B833BBA1F;229.
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 326.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 450.
  ) 
 Here is how much of TeX's memory you used:
- 10827 strings out of 493029
- 152505 string characters out of 6136235
- 288580 words of memory out of 5000000
- 14133 multiletter control sequences out of 15000+600000
- 106059 words of font info for 112 fonts, out of 8000000 for 9000
+ 10970 strings out of 493029
+ 154585 string characters out of 6136235
+ 328068 words of memory out of 5000000
+ 14167 multiletter control sequences out of 15000+600000
+ 107166 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,8n,40p,541b,1844s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{figure.5} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.4} has been referenced but does not exist, r
-eplaced by a fixed one
-
-pdfTeX warning (dest): name{figure.7} has been referenced but does not exist, r
-eplaced by a fixed one
-
-pdfTeX warning (dest): name{figure.6} has been referenced but does not exist, r
-eplaced by a fixed one
-
-pdfTeX warning (dest): name{figure.1} has been referenced but does not exist, r
-eplaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.1.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.1.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/u
-tmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (3 pages, 100277 bytes).
+ 31i,8n,40p,541b,1846s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (4 pages, 106580 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 170 compressed objects within 2 object streams
- 84 named destinations out of 1000 (max. 500000)
+ 304 PDF objects out of 1000 (max. 8388607)
+ 287 compressed objects within 3 object streams
+ 192 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
