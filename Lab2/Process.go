@@ -64,7 +64,7 @@ func CheckError(err error) {
 
 func setState(newState string) {
 	myState = newState
-	fmt.Println("Estado:", myState)
+	//fmt.Println("Estado:", myState)
 }
 
 func useCS(){
@@ -89,7 +89,7 @@ func readInput(ch chan string) {
 }
 
 func waitReplies() {
-	fmt.Println("Esperando N-1 respostas")
+	//fmt.Println("Esperando N-1 respostas")
 	for nReplies != nPorts-1 {}
 	nReplies = 0
 
@@ -102,7 +102,7 @@ func waitReplies() {
 		logicalClock++
 		reply.LogicalClock = logicalClock
 
-		fmt.Println("Reply enviado:", reply.LogicalClock, "reply")
+		//fmt.Println("Reply enviado:", reply.LogicalClock, "reply")
 		jsonReply, err := json.Marshal(reply)
 		CheckError(err)
 		_, err = ClientsConn[element-1].Write(jsonReply)
@@ -129,9 +129,9 @@ func doServerJob() {
 	logicalClock = max(messageLogicalClock, logicalClock) + 1
 
 	if messageType == "request" {
-		fmt.Println("Request recebido:",
-			messageReceived.LogicalClock, ", <", messageReceived.Timestamp, ",", messageReceived.Id, ">")
-		fmt.Println("logicalClock atualizado:", logicalClock)
+		//fmt.Println("Request recebido:",
+		//	messageReceived.LogicalClock, ", <", messageReceived.Timestamp, ",", messageReceived.Id, ">")
+		//fmt.Println("logicalClock atualizado:", logicalClock)
 		messageId := messageReceived.Id
 
 		if myState == "HELD" ||
@@ -148,13 +148,13 @@ func doServerJob() {
 			CheckError(err)
 			_, err = ClientsConn[messageId-1].Write(jsonReply)
 			CheckError(err)
-			fmt.Println("Reply enviado:", reply.LogicalClock, "reply")
-			fmt.Println("logicalClock atualizado:", logicalClock)
+			//fmt.Println("Reply enviado:", reply.LogicalClock, "reply")
+			//fmt.Println("logicalClock atualizado:", logicalClock)
 		}
 
 	} else if messageType == "reply" {
-		fmt.Println("Reply recebido:", messageReceived.LogicalClock, "reply")
-		fmt.Println("logicalClock atualizado:", logicalClock)
+		//fmt.Println("Reply recebido:", messageReceived.LogicalClock, "reply")
+		//fmt.Println("logicalClock atualizado:", logicalClock)
 		nReplies++
 	}
 }
@@ -162,11 +162,11 @@ func doServerJob() {
 func doClientJob(request RequestReplyStruct, otherProcessID int) {
 	// updating my clock
 	logicalClock++
-	fmt.Println("logicalClock atualizado:", logicalClock)
+	//fmt.Println("logicalClock atualizado:", logicalClock)
 
 	request.LogicalClock = logicalClock
 
-	fmt.Println("Request enviado:", request.LogicalClock, ", <", request.Timestamp, ",", request.Id, ">")
+	//fmt.Println("Request enviado:", request.LogicalClock, ", <", request.Timestamp, ",", request.Id, ">")
 	jsonRequest, err := json.Marshal(request)
 	CheckError(err)
 
@@ -256,7 +256,7 @@ func main() {
 						request.Timestamp = myTimestamp
 
 						// multicast requests
-						fmt.Println("Multicast request to all processes")
+						//fmt.Println("Multicast request to all processes")
 						for otherProcessID := 1; otherProcessID <= nPorts; otherProcessID++ {
 							if otherProcessID != myID {
 								go doClientJob(request, otherProcessID)
@@ -266,7 +266,7 @@ func main() {
 					} else {
 						// updating my clock
 						logicalClock++
-						fmt.Println("logicalClock atualizado:", logicalClock)
+						//fmt.Println("logicalClock atualizado:", logicalClock)
 					}
 				}
 

@@ -35,7 +35,7 @@ func doServerJob() {
 	err = json.Unmarshal(buf[:n], &messageReceived)
 	CheckError(err)
 
-	fmt.Println("Received", messageReceived)
+	//fmt.Println("Received", messageReceived)
 	fmt.Println(messageReceived.Text)
 }
 
