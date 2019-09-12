@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"hash/fnv"
 	"labMapReduce/mapreduce"
 
@@ -28,7 +27,7 @@ func mapFunc(input []byte) (result []mapreduce.KeyValue) {
 
 	words = strings.FieldsFunc(text, delimiterFunc)
 
-	fmt.Printf("%v\n", words) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
+	//fmt.Printf("%v\n", words) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
 
 	result = make([]mapreduce.KeyValue, 0)
 
@@ -43,7 +42,7 @@ func mapFunc(input []byte) (result []mapreduce.KeyValue) {
 		result = append(result, item)
 	}
 
-	fmt.Printf("%v\n", result) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
+	//fmt.Printf("%v\n", result) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
 
 	return result
 }
@@ -91,7 +90,7 @@ func reduceFunc(input []mapreduce.KeyValue) (result []mapreduce.KeyValue) {
 		result = append(result, itemAux)
 	}
 
-	fmt.Printf("%v\n", result) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
+	//fmt.Printf("%v\n", result) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
 
 	return result
 }
