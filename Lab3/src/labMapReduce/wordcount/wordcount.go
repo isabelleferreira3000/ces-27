@@ -5,7 +5,7 @@ import (
 	"hash/fnv"
 	"labMapReduce/mapreduce"
 
-	//"strconv"
+	"strconv"
 	"strings"
 	"unicode"
 )
@@ -72,8 +72,26 @@ func reduceFunc(input []mapreduce.KeyValue) (result []mapreduce.KeyValue) {
 	//	package strconv: func Itoa(i int) string
 
 	//COMPLETAR ESSE CÓDIGO!!!
+	var mapAux map[string]int = make(map[string]int)
+	var value int
+	for _,item := range input {
+		value, _ = strconv.Atoi(item.Value)
+		_, ok := mapAux[item.Key]
+		if ok {
+			mapAux[item.Key] += value
+		} else {
+			mapAux[item.Key] = value
+		}
+	}
 
-	//fmt.Printf("%v\n", result) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
+	var itemAux mapreduce.KeyValue
+	for key,value := range mapAux {
+		itemAux.Key = key
+		itemAux.Value = strconv.Itoa(value)
+		result = append(result, itemAux)
+	}
+
+	fmt.Printf("%v\n", result) //Para ajudar nos testes. Precisa da biblioteca fmt (acima comentada)
 
 	return result
 }
