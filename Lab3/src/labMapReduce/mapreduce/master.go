@@ -1,6 +1,7 @@
 package mapreduce
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"net/rpc"
@@ -80,6 +81,14 @@ func (master *Master) handleFailingWorkers() {
 	/////////////////////////
 	// YOUR CODE GOES HERE //
 	/////////////////////////
+	var mutex = &sync.Mutex{}
+
+	for elem := range master.failedWorkerChan {
+		mutex.Lock()
+		delete(master.workers, elem.id)
+		mutex.Unlock()
+		fmt.Println("Removing worker", elem.id, "from master list")
+	}
 }
 
 // Handle a single connection until it's done, then closes it.
