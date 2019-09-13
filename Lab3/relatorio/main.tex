@@ -122,7 +122,7 @@ func reduceFunc(input []mapreduce.KeyValue) (result []mapreduce.KeyValue) {
 
 \subsection{Parte 2: Trabalhando em modo distribuído}
 
-\subsubsection{Tarefa 2.1} Blabla
+\subsubsection{Tarefa 2.1} Bastou, para cada elemento presente no canal \textit{master.failedWorkerChan}, deletar esse worker que falhou da lista de workers \textit{master.workers} e decrescer o total de workers disponível \textit{master.totalWorkers}. Antes e depois dessa alteração, foi utilizado o \textit{Lock()} e o \textit{Unlock()}, respectivamente, do \textit{master.workersMutex}, a fim de evitar acesso simultâneo à região crítica.
 
 \begin{lstlisting}
 func (master *Master) handleFailingWorkers() {
@@ -138,7 +138,7 @@ func (master *Master) handleFailingWorkers() {
 }
 \end{lstlisting}
 
-\subsubsection{Tarefa 2.2} Blabla
+\subsubsection{Tarefa 2.2} Primeiramente foi necessário criar um novo canal (\textit{failedOperationChan}) na \textit{Master}, para transmitir a operação que falhou. É importante salientar também a inicialização do canal \textit{master.failedOperationChan}.
 
 \begin{lstlisting}
 type Master struct {
@@ -148,6 +148,8 @@ type Master struct {
 	failedOperationChan chan *Operation
 }
 \end{lstlisting}
+
+Era necessário também adicionar a operação falhada ao canal quando essa operação falhasse. Também foi removido o \textit{wg.Done()} desse momento, uma vez que essa operação não foi realmente concluída.
 
 \begin{lstlisting}
 func (master *Master) runOperation(remoteWorker *RemoteWorker, operation *Operation, wg *sync.WaitGroup) {
@@ -166,6 +168,8 @@ func (master *Master) runOperation(remoteWorker *RemoteWorker, operation *Operat
 }
 \end{lstlisting}
 
+Foi criada uma função para ser rodada em thread que lidasse com as operações falhadas (função \textit{handleFailingOperations}). Essa função ficava a espera de alguma operação ser colocada no canal \textit{master.failedOperationChan} e, cada vez que isso acontecia, esperava-se o próximo worker ser adicionado ao canal \textit{master.idleWorkerChan}, a fim de essa operação falhada ser atribuída a esse worker. Essa nova atribuição era feita através da chamada de uma nova thread executando \textit{master.runOperation}.
+
 \begin{lstlisting}
 func (master *Master) handleFailingOperations(wg *sync.WaitGroup) {
 
@@ -183,6 +187,8 @@ func (master *Master) handleFailingOperations(wg *sync.WaitGroup) {
 	}
 }
 \end{lstlisting}
+
+Essa função \textit{master.handleFailingOperations} foi chamada em thread na função \textit{schedule}.
 
 \begin{lstlisting}
 func (master *Master) schedule(task *Task, proc string, filePathChan chan string) int {
@@ -203,10 +209,9 @@ func (master *Master) schedule(task *Task, proc string, filePathChan chan string
 }
 \end{lstlisting}
 
-\subsubsection{Tarefa 2.3}
+\subsubsection{Tarefa 2.3} Executou-se o comando \textit{"./wordcount -mode sequential -file files/teste.txt -chunksize 100 -reducejobs 2"}, além de dois workers. Na primeira situação, um dos workers falhou na operação 2 (map operation). Já na segunda situação, um dos workers falhou na operação 3 (reduce operation).
 
-\subsubsection{Tarefa 2.4}
-
+\subsubsection{Tarefa 2.4} Executou-se o comando \textit{"./wordcount -mode sequential -file files/pg1342.txt -chunksize 102400 -reducejobs 5"} em um primeiro momento; e o mesmo comando com a diferença de ter apenas 1 reducejob em um segundo momento. Em ambas as situações, dois workers falharam e um terceiro não falhou.
 
 \section{Resultados e Conclusões} \label{results}
 
