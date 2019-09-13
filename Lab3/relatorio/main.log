@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  13 SEP 2019 00:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  13 SEP 2019 18:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1014,216 +1014,228 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 65.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 67.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 73.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 69.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 71.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 100.
+(babel)             in language  on input line 89.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 132.
+(babel)             in language  on input line 121.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 132.
+(babel)             in language  on input line 123.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 123.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 125.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 141.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 164.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 164.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-Overfull \hbox (2.8996pt too wide) in paragraph at lines 219--220
-[][][][][][][][][]  
- []
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 208.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 211.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 211.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 213.
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 239.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 239.
-[2]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 240.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 242.
- <imagens/ex1.png, id=176, 778.91pt x 389.455pt>
+<imagens/ex1.png, id=153, 778.91pt x 389.455pt>
 File: imagens/ex1.png Graphic file (type png)
  <use imagens/ex1.png>
-Package pdftex.def Info: imagens/ex1.png used on input line 250.
+Package pdftex.def Info: imagens/ex1.png used on input line 221.
 (pdftex.def)             Requested size: 233.6748pt x 116.83739pt.
 
-<imagens/ex1-proc1-clean.png, id=179, 436.63126pt x 137.51375pt>
+<imagens/ex1-proc1-clean.png, id=156, 436.63126pt x 137.51375pt>
 File: imagens/ex1-proc1-clean.png Graphic file (type png)
 
 <use imagens/ex1-proc1-clean.png>
-Package pdftex.def Info: imagens/ex1-proc1-clean.png used on input line 259.
+Package pdftex.def Info: imagens/ex1-proc1-clean.png used on input line 230.
 (pdftex.def)             Requested size: 218.3151pt x 68.7567pt.
 
-<imagens/ex1-proc2-clean.png, id=180, 362.35374pt x 143.53625pt>
+<imagens/ex1-proc2-clean.png, id=157, 362.35374pt x 143.53625pt>
 File: imagens/ex1-proc2-clean.png Graphic file (type png)
 
 <use imagens/ex1-proc2-clean.png>
-Package pdftex.def Info: imagens/ex1-proc2-clean.png used on input line 266.
+Package pdftex.def Info: imagens/ex1-proc2-clean.png used on input line 237.
 (pdftex.def)             Requested size: 181.17642pt x 71.76794pt.
 
-<imagens/ex1-proc3-clean.png, id=181, 410.53375pt x 112.42pt>
+<imagens/ex1-proc3-clean.png, id=158, 410.53375pt x 112.42pt>
 File: imagens/ex1-proc3-clean.png Graphic file (type png)
 
 <use imagens/ex1-proc3-clean.png>
-Package pdftex.def Info: imagens/ex1-proc3-clean.png used on input line 273.
+Package pdftex.def Info: imagens/ex1-proc3-clean.png used on input line 244.
 (pdftex.def)             Requested size: 205.26637pt x 56.20985pt.
 
-<imagens/ex1-shared-clean.png, id=182, 372.39125pt x 158.5925pt>
+<imagens/ex1-shared-clean.png, id=159, 372.39125pt x 158.5925pt>
 File: imagens/ex1-shared-clean.png Graphic file (type png)
 
 <use imagens/ex1-shared-clean.png>
-Package pdftex.def Info: imagens/ex1-shared-clean.png used on input line 280.
+Package pdftex.def Info: imagens/ex1-shared-clean.png used on input line 251.
 (pdftex.def)             Requested size: 186.19516pt x 79.29604pt.
 
-<imagens/ex1-proc1.png, id=185, 426.59375pt x 435.6275pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 255.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 255.
+ [2 <./imagens/ex1.png> <./imagens/ex1-proc1-clean.png> <./imagens/ex1-proc2-cl
+ean.png> <./imagens/ex1-proc3-clean.png>]
+<imagens/ex1-proc1.png, id=208, 426.59375pt x 435.6275pt>
 File: imagens/ex1-proc1.png Graphic file (type png)
 
 <use imagens/ex1-proc1.png>
-Package pdftex.def Info: imagens/ex1-proc1.png used on input line 289.
+Package pdftex.def Info: imagens/ex1-proc1.png used on input line 260.
 (pdftex.def)             Requested size: 213.29634pt x 217.81322pt.
 
-<imagens/ex1-proc2.png, id=186, 361.35pt x 229.85875pt>
+<imagens/ex1-proc2.png, id=209, 361.35pt x 229.85875pt>
 File: imagens/ex1-proc2.png Graphic file (type png)
 
 <use imagens/ex1-proc2.png>
-Package pdftex.def Info: imagens/ex1-proc2.png used on input line 296.
+Package pdftex.def Info: imagens/ex1-proc2.png used on input line 267.
 (pdftex.def)             Requested size: 180.67456pt x 114.92908pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 300.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 300.
- [3 <./imagens/ex1.png> <./imagens/ex1-proc1-clean.png> <./imagens/ex1-proc2-cl
-ean.png> <./imagens/ex1-proc3-clean.png> <./imagens/ex1-shared-clean.png> <./im
-agens/ex1-proc1.png>] <imagens/ex1-proc3.png, id=198, 406.51875pt x 446.66875pt
->
+<imagens/ex1-proc3.png, id=210, 406.51875pt x 446.66875pt>
 File: imagens/ex1-proc3.png Graphic file (type png)
 
 <use imagens/ex1-proc3.png>
-Package pdftex.def Info: imagens/ex1-proc3.png used on input line 303.
+Package pdftex.def Info: imagens/ex1-proc3.png used on input line 274.
 (pdftex.def)             Requested size: 203.25887pt x 223.33382pt.
 
-<imagens/ex1-shared.png, id=199, 374.39874pt x 127.47626pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+<imagens/ex1-shared.png, id=211, 374.39874pt x 127.47626pt>
 File: imagens/ex1-shared.png Graphic file (type png)
 
 <use imagens/ex1-shared.png>
-Package pdftex.def Info: imagens/ex1-shared.png used on input line 310.
+Package pdftex.def Info: imagens/ex1-shared.png used on input line 281.
 (pdftex.def)             Requested size: 187.19891pt x 63.73796pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 317.
+(babel)             in language  on input line 288.
 
-<imagens/ex2.png, id=202, 958.58125pt x 461.725pt>
+<imagens/ex2.png, id=214, 958.58125pt x 461.725pt>
 File: imagens/ex2.png Graphic file (type png)
  <use imagens/ex2.png>
-Package pdftex.def Info: imagens/ex2.png used on input line 325.
+Package pdftex.def Info: imagens/ex2.png used on input line 296.
 (pdftex.def)             Requested size: 239.64473pt x 115.43097pt.
 
-<imagens/ex2-proc1-clean.png, id=205, 592.2125pt x 170.6375pt>
+Underfull \vbox (badness 7907) has occurred while \output is active []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 300.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 300.
+ [3 <./imagens/ex1-shared-clean.png> <./imagens/ex1-proc1.png> <./imagens/ex1-p
+roc2.png> <./imagens/ex1-proc3.png> <./imagens/ex1-shared.png>]
+<imagens/ex2-proc1-clean.png, id=226, 592.2125pt x 170.6375pt>
 File: imagens/ex2-proc1-clean.png Graphic file (type png)
 
 <use imagens/ex2-proc1-clean.png>
-Package pdftex.def Info: imagens/ex2-proc1-clean.png used on input line 334.
+Package pdftex.def Info: imagens/ex2-proc1-clean.png used on input line 305.
 (pdftex.def)             Requested size: 236.8808pt x 68.25378pt.
 
-<imagens/ex2-proc2-clean.png, id=206, 578.16pt x 166.6225pt>
+<imagens/ex2-proc2-clean.png, id=227, 578.16pt x 166.6225pt>
 File: imagens/ex2-proc2-clean.png Graphic file (type png)
 
 <use imagens/ex2-proc2-clean.png>
-Package pdftex.def Info: imagens/ex2-proc2-clean.png used on input line 341.
+Package pdftex.def Info: imagens/ex2-proc2-clean.png used on input line 312.
 (pdftex.def)             Requested size: 231.2599pt x 66.64781pt.
 
-<imagens/ex2-proc3-clean.png, id=207, 585.18625pt x 167.62625pt>
+<imagens/ex2-proc3-clean.png, id=228, 585.18625pt x 167.62625pt>
 File: imagens/ex2-proc3-clean.png Graphic file (type png)
 
 <use imagens/ex2-proc3-clean.png>
-Package pdftex.def Info: imagens/ex2-proc3-clean.png used on input line 348.
+Package pdftex.def Info: imagens/ex2-proc3-clean.png used on input line 319.
 (pdftex.def)             Requested size: 234.07034pt x 67.0493pt.
+
+<imagens/ex2-proc4-clean.png, id=229, 586.19pt x 198.7425pt>
+File: imagens/ex2-proc4-clean.png Graphic file (type png)
+
+<use imagens/ex2-proc4-clean.png>
+Package pdftex.def Info: imagens/ex2-proc4-clean.png used on input line 326.
+(pdftex.def)             Requested size: 234.47185pt x 79.49557pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+<imagens/ex2-proc5-clean.png, id=230, 588.1975pt x 180.675pt>
+File: imagens/ex2-proc5-clean.png Graphic file (type png)
+
+<use imagens/ex2-proc5-clean.png>
+Package pdftex.def Info: imagens/ex2-proc5-clean.png used on input line 333.
+(pdftex.def)             Requested size: 235.27483pt x 72.2687pt.
+
+<imagens/ex2-shared-clean.png, id=231, 484.81125pt x 110.4125pt>
+File: imagens/ex2-shared-clean.png Graphic file (type png)
+
+<use imagens/ex2-shared-clean.png>
+Package pdftex.def Info: imagens/ex2-shared-clean.png used on input line 340.
+(pdftex.def)             Requested size: 242.40503pt x 55.2061pt.
+
+<imagens/ex2-proc1.png, id=235, 423.5825pt x 580.1675pt>
+File: imagens/ex2-proc1.png Graphic file (type png)
+
+<use imagens/ex2-proc1.png>
+Package pdftex.def Info: imagens/ex2-proc1.png used on input line 349.
+(pdftex.def)             Requested size: 169.43pt x 232.06288pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 352.
+(babel)             in language  on input line 353.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 352.
- [4 <./imagens/ex1-proc2.png> <./imagens/ex1-proc3.png> <./imagens/ex1-shared.p
-ng> <./imagens/ex2.png> <./imagens/ex2-proc1-clean.png> <./imagens/ex2-proc2-cl
-ean.png>]
-<imagens/ex2-proc4-clean.png, id=218, 586.19pt x 198.7425pt>
-File: imagens/ex2-proc4-clean.png Graphic file (type png)
-
-<use imagens/ex2-proc4-clean.png>
-Package pdftex.def Info: imagens/ex2-proc4-clean.png used on input line 355.
-(pdftex.def)             Requested size: 234.47185pt x 79.49557pt.
-
-<imagens/ex2-proc5-clean.png, id=219, 588.1975pt x 180.675pt>
-File: imagens/ex2-proc5-clean.png Graphic file (type png)
-
-<use imagens/ex2-proc5-clean.png>
-Package pdftex.def Info: imagens/ex2-proc5-clean.png used on input line 362.
-(pdftex.def)             Requested size: 235.27483pt x 72.2687pt.
-
-<imagens/ex2-shared-clean.png, id=220, 484.81125pt x 110.4125pt>
-File: imagens/ex2-shared-clean.png Graphic file (type png)
-
-<use imagens/ex2-shared-clean.png>
-Package pdftex.def Info: imagens/ex2-shared-clean.png used on input line 369.
-(pdftex.def)             Requested size: 242.40503pt x 55.2061pt.
-
-<imagens/ex2-proc1.png, id=224, 423.5825pt x 580.1675pt>
-File: imagens/ex2-proc1.png Graphic file (type png)
-
-<use imagens/ex2-proc1.png>
-Package pdftex.def Info: imagens/ex2-proc1.png used on input line 378.
-(pdftex.def)             Requested size: 169.43pt x 232.06288pt.
-
-Underfull \vbox (badness 3849) has occurred while \output is active []
-
-
-<imagens/ex2-proc2.png, id=225, 431.6125pt x 221.82875pt>
+(babel)             in language  on input line 353.
+ [4 <./imagens/ex2.png> <./imagens/ex2-proc1-clean.png> <./imagens/ex2-proc2-cl
+ean.png> <./imagens/ex2-proc3-clean.png> <./imagens/ex2-proc4-clean.png> <./ima
+gens/ex2-proc5-clean.png> <./imagens/ex2-shared-clean.png>]
+<imagens/ex2-proc2.png, id=248, 431.6125pt x 221.82875pt>
 File: imagens/ex2-proc2.png Graphic file (type png)
 
 <use imagens/ex2-proc2.png>
-Package pdftex.def Info: imagens/ex2-proc2.png used on input line 385.
+Package pdftex.def Info: imagens/ex2-proc2.png used on input line 356.
 (pdftex.def)             Requested size: 172.64194pt x 88.72992pt.
 
-<imagens/ex2-proc3.png, id=226, 436.63126pt x 230.8625pt>
+<imagens/ex2-proc3.png, id=249, 436.63126pt x 230.8625pt>
 File: imagens/ex2-proc3.png Graphic file (type png)
 
 <use imagens/ex2-proc3.png>
-Package pdftex.def Info: imagens/ex2-proc3.png used on input line 392.
+Package pdftex.def Info: imagens/ex2-proc3.png used on input line 363.
 (pdftex.def)             Requested size: 174.6494pt x 92.34335pt.
 
-<imagens/ex2-proc4.png, id=227, 430.60875pt x 597.23125pt>
+<imagens/ex2-proc4.png, id=250, 430.60875pt x 597.23125pt>
 File: imagens/ex2-proc4.png Graphic file (type png)
 
 <use imagens/ex2-proc4.png>
-Package pdftex.def Info: imagens/ex2-proc4.png used on input line 399.
+Package pdftex.def Info: imagens/ex2-proc4.png used on input line 370.
 (pdftex.def)             Requested size: 172.24043pt x 238.88826pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 403.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 403.
- [5 <./imagens/ex2-proc3-clean.png> <./imagens/ex2-proc4-clean.png> <./imagens/
-ex2-proc5-clean.png> <./imagens/ex2-shared-clean.png> <./imagens/ex2-proc1.png>
- <./imagens/ex2-proc2.png> <./imagens/ex2-proc3.png>]
-<imagens/ex2-proc5.png, id=239, 440.64626pt x 235.88126pt>
+
+<imagens/ex2-proc5.png, id=251, 440.64626pt x 235.88126pt>
 File: imagens/ex2-proc5.png Graphic file (type png)
 
 <use imagens/ex2-proc5.png>
-Package pdftex.def Info: imagens/ex2-proc5.png used on input line 406.
+Package pdftex.def Info: imagens/ex2-proc5.png used on input line 377.
 (pdftex.def)             Requested size: 176.25537pt x 94.35083pt.
 
-<imagens/ex2-shared.png, id=240, 485.815pt x 139.52126pt>
+<imagens/ex2-shared.png, id=252, 485.815pt x 139.52126pt>
 File: imagens/ex2-shared.png Graphic file (type png)
 
 <use imagens/ex2-shared.png>
-Package pdftex.def Info: imagens/ex2-shared.png used on input line 413.
+Package pdftex.def Info: imagens/ex2-shared.png used on input line 384.
 (pdftex.def)             Requested size: 242.9069pt x 69.76045pt.
 
 
@@ -1237,40 +1249,55 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 429.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 400.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 429.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 429.
-[6
-
- <./imagens/ex2-proc4.png> <./imagens/ex2-proc5.png> <./imagens/ex2-shared.png>
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 429.
+(babel)             in language  on input line 400.
+[5 <./imagens/ex2-proc1.png> <./imagens/ex2-proc2.png> <./imagens/ex2-proc3.png
+> <./imagens/ex2-proc4.png> <./imagens/ex2-proc5.png> <./imagens/ex2-shared.png
+>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 400.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 429.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 429.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 3B51E630E68AFB1CF47197EBFD951DB7;354.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 429.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 400.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 400.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 5B769D1B3F04B4CE6ADBCA43236C49C5;1093
+(rerunfilecheck)             After:  C87202BE6377FEC2E11C985316058DD0;964.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 400.
  ) 
 Here is how much of TeX's memory you used:
- 11046 strings out of 493029
- 156683 string characters out of 6136235
- 315099 words of memory out of 5000000
- 14259 multiletter control sequences out of 15000+600000
+ 11030 strings out of 493029
+ 156512 string characters out of 6136235
+ 303099 words of memory out of 5000000
+ 14256 multiletter control sequences out of 15000+600000
  104360 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,8n,40p,677b,1844s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
-/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 447951 bytes).
+pdfTeX warning (dest): name{subsection.1.4} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsection.1.3} has been referenced but does not ex
+ist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (5 pages, 445551 bytes).
 PDF statistics:
- 302 PDF objects out of 1000 (max. 8388607)
- 264 compressed objects within 3 object streams
- 166 named destinations out of 1000 (max. 500000)
- 159 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 314 PDF objects out of 1000 (max. 8388607)
+ 277 compressed objects within 3 object streams
+ 153 named destinations out of 1000 (max. 500000)
+ 239 words of extra memory for PDF output out of 10000 (max. 10000000)
 

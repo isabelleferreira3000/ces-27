@@ -55,187 +55,158 @@ isabelle.ferreira3000@gmail.com}
 \maketitle
 
 \begin{abstract}
-Esse relatório documenta a implementação do algoritmo de Ricart-Agrawala, um algoritmo de exclusão mútua para sistemas distribuídos.
+Esse relatório documenta um trabalho com o modelo de programação MapReduce de forma sequencial e distribuída.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Algoritmo de Ricart-Agrawala, exclusão mútua, Relógio lógico vetorial, sistemas distribuídos
+Map Reduce, Golang, sistema sequencial, sistema distribuído
 \end{IEEEkeywords}
 
 \section{Implementação}
 
-\subsection{Recurso Compartilhado}
-	
-	A implementação do recurso compartilhado se tratou principalmente da utilização do código disponibilizado no roteiro do laboratório. Dentro do loop principal, foi colocada a função de servidor, cuja implementação era simplesmente imprimir na tela qualquer mensagem recebida pela porta :10001.
-	
-	Abaixo encontra-se os códigods da função main() e da função doServerJob().
-	
-\begin{lstlisting}
-func main() {
-	Address, err := net.ResolveUDPAddr("udp", ":10001")
-	Connection, err = net.ListenUDP("udp", Address)
-	defer Connection.Close()
+\subsection{Parte 1: Trabalhando em modo sequencial}
 
-	for {
-		doServerJob()
+\subsubsection{Tarefa 1.1} blabla
+
+\begin{lstlisting}
+func mapFunc(input []byte) (result []mapreduce.KeyValue) {
+
+	// [...]
+
+	var item mapreduce.KeyValue
+
+	for _, word := range words {
+		word = strings.ToLower(word)
+		item.Key = word
+		item.Value = "1"
+		result = append(result, item)
 	}
+	
+	return result
 }
 \end{lstlisting}
 
-\begin{lstlisting}
-func doServerJob() {
-	buf := make([]byte, 1024)
-
-	n, _, err := Connection.ReadFromUDP(buf)
-	err = json.Unmarshal(buf[:n], &messageReceived)
-
-	fmt.Println(messageReceived.Text)
-}
-\end{lstlisting}
-
-	A mensagem recebida era da forma de struct, com os atributos de id do processo que enviou a mensagem, o relógio lógico do processo que enviou a mensagem e, por fim, o texto a ser impresso no terminal.
-
-	Vale ressaltar também que, para esse código e todos os outros dessa atividade, sempre após a setagem da variável \textit{err}, referente a um possível erro advindo de algumas funções, também era chamada a função CheckError(err), que imprime o erro e interrompe o processo caso houvesse algum erro.
-	
-\subsection{Processo}
-
-	A grosso modo, o processo foi implementado de forma bastante semelhante ao feito no Laboratório 1, como pode ser observado na main() abaixo. 
-	
-	Sobre as diferenças, a existência de estados ("RELEASED", "WANTED" e "HELD"), que determinam a validade de uma entrada pelo terminal do processo, além participam na priorização de permanência na CS (assim como o timestamp das requests de entrada na CS, e os IDs dos processos). Além disso, mudanças nos comportamentos do servidor, além de mudanças nas mensagens trocadas entre os processos.
-	
-	Conforme se pode ver na main() apresentada abaixo, ao receber uma mensagem pelo terminal, o processo verifica sua validade e, caso seja válida, passa para o estado "WANTED", enviando requests de entrada na CS para os demais processos. A partir daí, o processo em questão espera pelas replies dos demais processos, entrando na CS quando receber todas. Após sair da CS, o processo responde as requests dos demais processos que ele tiver adicionado a fila.
-	
-\begin{lstlisting}
-func main() {
-	initConnections()
-	setState("RELEASED")
-
-	defer ServerConn.Close()
-	for i := 0; i < nPorts; i++ {
-		defer ClientsConn[i].Close()
-	}
-
-	go readInput(ch)
-	
-	for {
-		go doServerJob()
-		
-		select {
-		case textReceived, valid := <-ch:
-			if valid {
-				if myState == "WANTED" || myState == "HELD" {
-					fmt.Println(textReceived, "invalido")
-				} else {
-					if textReceived != myIDString {
-						messageSent.Text = textReceived
-
-						setState("WANTED")
-						myTimestamp = logicalClock
-						request.Timestamp = myTimestamp
-
-						for otherID := 1; otherID <= nPorts; otherID++ {
-							if otherID != myID {
-								go doClientJob(request, otherID)
-							}
-						}
-						go waitReplies()
-					} else {
-						// updating my clock
-						logicalClock++
-					}
-				}
-			} else {
-				fmt.Println("Channel closed!")
-			}
-		default:
-			time.Sleep(time.Second * 1)
-		}
-	}
-}
-\end{lstlisting}
-
-	Como servidor, ao receber uma mensagem de outros processos, o processo atualiza seu relógio lógico e verifica o tipo dessa mensagem, se é "request" ou "reply". Essa mensagem trata-se de uma struct, contendo os atributos de tipo ("request" ou "reply"), além de o timestamp (para o casod de request), o ID do processo que enviou e seu relógio lógico. 
-	
-	Caso receba um reply de que pode entrar na CS, um contador de replies é acrescido. Já caso a mensagem seja um request, é necessário verificar as condições de prioridade para responder esse request, ou adicioná-lo a uma fila com os demais requests a se responder. Enviar uma reply também incrementa o relógio lógico do processo.
-	
-	Segue a seguir o código da função doServerJob(). 
+\subsubsection{Tarefa 1.2} blabla
 
 \begin{lstlisting}
-func doServerJob() {
-	buf := make([]byte, 1024)
+func reduceFunc(input []mapreduce.KeyValue) (result []mapreduce.KeyValue) {
 
-	n, _, err := ServerConn.ReadFromUDP(buf)
-	var message RequestReplyStruct
-	err = json.Unmarshal(buf[:n], &message)
+	var mapAux map[string]int = make(map[string]int)
+	var value int
 
-	msgType := message.Type
-	msgLogicalClock := message.LogicalClock
-	msgTimestamp := message.Timestamp
-
-	// updating clocks
-	logicalClock = max(msgLogicalClock, logicalClock) + 1
-
-	if msgType == "request" {
-		msgId := message.Id
-
-		if myState == "HELD" ||
-			( myState == "WANTED" && ( msgTimestamp < myTimestamp ||
-				( msgTimestamp == myTimestamp && msgId < myID ))) {
-			requestsQueue = append(requestsQueue, msgId)
-
+	for _,item := range input {
+		value, _ = strconv.Atoi(item.Value)
+		_, ok := mapAux[item.Key]
+		if ok {
+			mapAux[item.Key] += value
 		} else {
-			// updating clocks
-			logicalClock++
-			reply.LogicalClock = logicalClock
-
-			jsonReply, err := json.Marshal(reply)
-			_, err = CliConn[msgId-1].Write(jsonReply)
+			mapAux[item.Key] = value
 		}
-
-	} else if msgType == "reply" {
-		nReplies++
 	}
-}
-\end{lstlisting}
 
-	Por fim, esperar as replies dos demais processos se trata de uma thread presa em loop com a condição de o contador de replies chegar ao total esperado. Após isso, o processo passa para o estado "HELD", adentra a CS e a usa, posteriormente saindo da CS e passando para o estado "RELEASED". Como explicado anteriormente, dentro da CS, o processo envia uma mensagem ao SharedResource com o texto digitado no terminal do processo e dorme por alguns segundos; após sair da CS, o processo responde aos requests restantes que estiverem enfileirados.
+	var itemAux mapreduce.KeyValue
+
+	for key,value := range mapAux {
+		itemAux.Key = key
+		itemAux.Value = strconv.Itoa(value)
+		result = append(result, itemAux)
+	}
 	
-	Os códigos de waitReplies() e useCS() estão apresentados a seguir.
+	return result
+}
+\end{lstlisting}
+
+\subsubsection{Tarefa 1.3}
+
+\subsubsection{Tarefa 1.4}
+
+\subsection{Parte 2: Trabalhando em modo distribuído}
+
+\subsubsection{Tarefa 2.1} Blabla
 
 \begin{lstlisting}
-func waitReplies() {
-	for nReplies != nPorts-1 {}
-	nReplies = 0
+func (master *Master) handleFailingWorkers() {
 
-	setState("HELD")
-	useCS()
-	setState("RELEASED")
+	for elem := range master.failedWorkerChan {
+		master.workersMutex.Lock()
+		delete(master.workers, elem.id)
+		master.totalWorkers--
+		master.workersMutex.Unlock()
 
-	// reply requests
-	for _, element := range requestsQueue {
-		logicalClock++
-		reply.LogicalClock = logicalClock
-		jsonReply, err := json.Marshal(reply)
-		_, err = ClientsConn[element-1].Write(jsonReply)
+		fmt.Println("Removing worker", elem.id, "from master list")
 	}
-	requestsQueue = make([]int, 0)
+}
+\end{lstlisting}
+
+\subsubsection{Tarefa 2.2} Blabla
+
+\begin{lstlisting}
+type Master struct {
+	// [...]
+
+	// Fault Tolerance
+	failedOperationChan chan *Operation
 }
 \end{lstlisting}
 
 \begin{lstlisting}
-func useCS(){
-	fmt.Println("Entrei na CS")
-	messageSent.LogicalClock = logicalClock
+func (master *Master) runOperation(remoteWorker *RemoteWorker, operation *Operation, wg *sync.WaitGroup) {
 
-	jsonMessage, err := json.Marshal(messageSent)
-	_, err = SharedResourceConn.Write(jsonMessage)
+	// [...]
 
-	time.Sleep(time.Second * 10)
-	fmt.Println("Sai da CS")
+	if err != nil {
+		log.Printf("Operation %v '%v' Failed. Error: %v\n", operation.proc, operation.id, err)
+		
+		master.failedWorkerChan <- remoteWorker
+		master.failedOperationChan <- operation
+	} else {
+		wg.Done()
+		master.idleWorkerChan <- remoteWorker
+	}
 }
-\end{lstlisting}	
+\end{lstlisting}
 
-	Caso seja necessário, pode-se também consultar o código enviado como anexo a essa atividade. 
+\begin{lstlisting}
+func (master *Master) handleFailingOperations(wg *sync.WaitGroup) {
+
+	var operation *Operation
+	var worker *RemoteWorker
+	var ok bool
+
+	for {
+		operation, ok = <-master.failedOperationChan
+		if !ok { break }
+
+		worker, _ = <-master.idleWorkerChan
+
+		go master.runOperation(worker, operation, wg)
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+func (master *Master) schedule(task *Task, proc string, filePathChan chan string) int {
+
+	var (
+		wg        sync.WaitGroup
+		filePath  string
+		worker    *RemoteWorker
+		operation *Operation
+		counter   int
+	)
+	
+	master.failedOperationChan = make(chan *Operation, RETRY_OPERATION_BUFFER)
+
+	go master.handleFailingOperations(&wg)
+
+	// [...]
+}
+\end{lstlisting}
+
+\subsubsection{Tarefa 2.3}
+
+\subsubsection{Tarefa 2.4}
+
 
 \section{Resultados e Conclusões} \label{results}
 
