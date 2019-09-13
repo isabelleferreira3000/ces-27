@@ -50,7 +50,6 @@ func newMaster(address string) (master *Master) {
 	master.workers = make(map[int]*RemoteWorker, 0)
 	master.idleWorkerChan = make(chan *RemoteWorker, IDLE_WORKER_BUFFER)
 	master.failedWorkerChan = make(chan *RemoteWorker, IDLE_WORKER_BUFFER)
-	master.failedOperationChan = make(chan *Operation, RETRY_OPERATION_BUFFER)
 	master.totalWorkers = 0
 	return
 }

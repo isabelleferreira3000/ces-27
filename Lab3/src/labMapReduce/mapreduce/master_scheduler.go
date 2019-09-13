@@ -14,9 +14,6 @@ func (master *Master) handleFailingOperations(wg *sync.WaitGroup) {
 		operation, ok = <-master.failedOperationChan
 		if !ok { break }
 
-		//fmt.Println("falhou alguma operacao", operation.id)
-		//fmt.Println(wg)
-
 		worker, _ = <-master.idleWorkerChan
 
 		go master.runOperation(worker, operation, wg)
@@ -83,7 +80,7 @@ func (master *Master) runOperation(remoteWorker *RemoteWorker, operation *Operat
 		master.failedWorkerChan <- remoteWorker
 		master.failedOperationChan <- operation
 	} else {
-		log.Printf("Operation %v '%v' done.\n", operation.proc, operation.id)
+		//log.Printf("Operation %v '%v' done.\n", operation.proc, operation.id)
 		wg.Done()
 		master.idleWorkerChan <- remoteWorker
 	}
