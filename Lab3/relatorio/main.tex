@@ -66,7 +66,7 @@ Map Reduce, Golang, sistema sequencial, sistema distribuído
 
 \subsection{Parte 1: Trabalhando em modo sequencial}
 
-\subsubsection{Tarefa 1.1} blabla
+\subsubsection{Tarefa 1.1} Bastou percorrer a lista de palavras presentes em \textit{words} e, para cada palavra, adicionar a um array de mapreduce.KeyValue um novo item, contendo a palavra em questão como atributo \textit{Key} e "1" como atributo \textit{Value}.
 
 \begin{lstlisting}
 func mapFunc(input []byte) (result []mapreduce.KeyValue) {
@@ -86,7 +86,7 @@ func mapFunc(input []byte) (result []mapreduce.KeyValue) {
 }
 \end{lstlisting}
 
-\subsubsection{Tarefa 1.2} blabla
+\subsubsection{Tarefa 1.2} Bastou percorrer o array \textit{input} de mapreduce.KeyValue, atualizando um mapa a fim de agrupar as palavras repetidas nesse \textit{input}. O atributo Key de cada item desse \textit{input} era a palavra que serviria de chave nesse mapa. Caso a palavra já estivesse no mapa, acrescentava-se o valor contido no atributo Value do item ao valor já presente no mapa. Caso contrário, esse novo item era adicionado no mapa, com o atributo Value sendo setado como valor inicial dessa chave. Após isso, percorreu-se esse mapa, adicionando os elementos no array \textit{result} de mapreduce.KeyValue. Era necessário, também, vazer as conversões de inteiro para string, e vice-versa, para adicionar corretamente nos mapas e no array \textit{result} de mapreduce.KeyValue.
 
 \begin{lstlisting}
 func reduceFunc(input []mapreduce.KeyValue) (result []mapreduce.KeyValue) {
@@ -116,9 +116,9 @@ func reduceFunc(input []mapreduce.KeyValue) (result []mapreduce.KeyValue) {
 }
 \end{lstlisting}
 
-\subsubsection{Tarefa 1.3}
+\subsubsection{Tarefa 1.3} Executou-se o comando \textit{"./wordcount -mode sequential -file files/teste.txt -chunksize 100 -reducejobs 2"}, conforme sugerido no roteiro.
 
-\subsubsection{Tarefa 1.4}
+\subsubsection{Tarefa 1.4} Executou-se o comando da Tarefa 1.3, dessa vez para o arquivo \textit{files/musica.txt}. Os valores de \textit{chunksize} e \textit{reducejob} foram alterados para: 100 e 2; 100 e 1; e 102400 e 2. O arquivo \textit{musica.txt} pode ser observado no código enviado em anexo ao relatório.
 
 \subsection{Parte 2: Trabalhando em modo distribuído}
 
@@ -218,8 +218,8 @@ func (master *Master) schedule(task *Task, proc string, filePathChan chan string
 	
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.3]{imagens/ex1.png}}
-\caption{Funcionamento esperado para a tarefa com 3 processos.}.
+\centerline{\includegraphics[scale=0.3]{imagens/tarefa_1_3/tarefa_1_3.png}}
+\caption{Teste}
 \label{ex1}
 \end{figure}
 
@@ -227,28 +227,28 @@ func (master *Master) schedule(task *Task, proc string, filePathChan chan string
 	
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc1-clean.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_1_4_1/tarefa_1_4_1.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 1.}.
 \label{ex1-proc1-clean}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc2-clean.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_1_4_2/tarefa_1_4_2.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 2.}.
 \label{ex1-proc2-clean}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc3-clean.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_1_4_3/tarefa_1_4_3.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 3.}.
 \label{ex1-proc3-clean}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-shared-clean.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_2_3_map/tarefa_2_3_map.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do SharedResource.}.
 \label{ex1-shared-clean}
 \end{figure}
@@ -257,31 +257,25 @@ func (master *Master) schedule(task *Task, proc string, filePathChan chan string
 	
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc1.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_2_3_reduce/tarefa_2_3_reduce.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 1.}.
 \label{ex1-proc1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc2.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_2_4_1/tarefa_2_4_1.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 2.}.
 \label{ex1-proc2}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-proc3.png}}
+\centerline{\includegraphics[scale=0.5]{imagens/tarefa_2_4_1/tarefa_2_4_1.png}}
 \caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do processo 3.}.
 \label{ex1-proc3}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex1-shared.png}}
-\caption{Exemplo do funcionamento da tarefa com 3 processos. Tela do SharedResource.}.
-\label{ex1-shared}
-\end{figure}
 
 	Como esses resultados foram condizentes com os resultados esperados, leva-se a perceber que a implementação da Tarefa foi feita corretamente. Mas, antes de concluir-se algo, foi-se realizado um segundo teste.
 
@@ -291,100 +285,12 @@ func (master *Master) schedule(task *Task, proc string, filePathChan chan string
 	
 	Análogo ao teste 1, na Figura \ref{ex2}, para P1, as setas azuis representam requests e as verdes, replies; e para P4, essa setas são rosas e cinzas, respectivamente. Nos requests, a mensagem enviada também é da forma "\textit{relógio lógico, < timestamp, id >}"; assim como no reply, que a forma também é "\textit{relógio lógico, 'reply'}". Além disso, nesse caso também a linha amarela representa o processo no estado WANTED; e a linha vermelha, no estado HELD, ou seja, na CS.
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.25]{imagens/ex2.png}}
-\caption{Funcionamento esperado para a tarefa para 5 processos.}.
-\label{ex2}
-\end{figure}
 
 	Foi simulada essa situação acima com o código implementado no laboratório, tendo os resultados apresentados nas Figuras de \ref{ex2-proc1-clean} a \ref{ex2-shared-clean}. Durante o período na CS, também foi digitado mensagens no terminal dos processos, para que se verifisse o funcionamento da validação da mensagem. Assim, para essas mensagens, foi dado o feedback de mensagem inválida.
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc1-clean.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 1.}.
-\label{ex2-proc1-clean}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc2-clean.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 2.}.
-\label{ex2-proc2-clean}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc3-clean.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 3.}.
-\label{ex2-proc3-clean}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc4-clean.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 4.}.
-\label{ex2-proc4-clean}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc5-clean.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 5.}.
-\label{ex2-proc5-clean}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex2-shared-clean.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do SharedResource.}.
-\label{ex2-shared-clean}
-\end{figure}
-
 	A fim de entender melhor cada estágio do funcionamento, foram realizados os mesmos testes novamente, agora com prints de debug. Dessa forma, esses resultados estão apresentados nas Figuras de \ref{ex2-proc1} a \ref{ex2-shared}. Como é difícil simular com exatidão os instantes dos envios de request dos processos simultaneamente, foi feito da seguinte forma: o processo P4 entra no estado WANTED durante o estado HELD do processo P1. Isso é um pouco diferente do apresentado na Figura \ref{ex2}, mas não prejudica os testes. Contudo, isso altera um pouco a ordem dos envios de mensagens, e, consequentemente, os valores relógios lógicos.
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc1.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 1.}.
-\label{ex2-proc1}
-\end{figure}
 
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc2.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 2.}.
-\label{ex2-proc2}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc3.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 3.}.
-\label{ex2-proc3}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc4.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 4.}.
-\label{ex2-proc4}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.4]{imagens/ex2-proc5.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do processo 5.}.
-\label{ex2-proc5}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\centerline{\includegraphics[scale=0.5]{imagens/ex2-shared.png}}
-\caption{Exemplo do funcionamento da tarefa com 5 processos. Tela do SharedResource.}.
-\label{ex2-shared}
-\end{figure}
 	
 	Como esses resultados também foram condizentes com os resultados esperados, conclui-se que a implementação da Tarefa foi feita corretamente.
 	
