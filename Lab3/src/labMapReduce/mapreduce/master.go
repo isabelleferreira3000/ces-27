@@ -34,6 +34,7 @@ type Master struct {
 	// ADD EXTRA PROPERTIES HERE //
 	///////////////////////////////
 	// Fault Tolerance
+	failedOperationChan chan *Operation
 }
 
 type Operation struct {
@@ -49,6 +50,7 @@ func newMaster(address string) (master *Master) {
 	master.workers = make(map[int]*RemoteWorker, 0)
 	master.idleWorkerChan = make(chan *RemoteWorker, IDLE_WORKER_BUFFER)
 	master.failedWorkerChan = make(chan *RemoteWorker, IDLE_WORKER_BUFFER)
+	master.failedOperationChan = make(chan *Operation, RETRY_OPERATION_BUFFER)
 	master.totalWorkers = 0
 	return
 }
@@ -81,12 +83,11 @@ func (master *Master) handleFailingWorkers() {
 	/////////////////////////
 	// YOUR CODE GOES HERE //
 	/////////////////////////
-	var mutex = &sync.Mutex{}
-
 	for elem := range master.failedWorkerChan {
-		mutex.Lock()
+		master.workersMutex.Lock()
 		delete(master.workers, elem.id)
-		mutex.Unlock()
+		master.totalWorkers--
+		master.workersMutex.Unlock()
 		fmt.Println("Removing worker", elem.id, "from master list")
 	}
 }
