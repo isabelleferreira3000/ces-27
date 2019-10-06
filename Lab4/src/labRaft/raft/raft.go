@@ -212,6 +212,12 @@ func (raft *Raft) candidateSelect() {
 			}
 			log.Printf("[CANDIDATE] Vote denied by '%v'.\n", raft.peers[rvr.peerIndex])
 
+			if voteCount > len(raft.peers)/2 {
+				log.Printf("[CANDIDATE] Becoming leader.\n")
+				raft.currentState.Set(leader)
+				return
+			}
+
 			// END OF MODIFY //
 			///////////////////
 
