@@ -325,7 +325,13 @@ func (raft *Raft) leaderSelect() {
 		case aet := <-replyChan:
 			///////////////////
 			//  MODIFY HERE  //
-			_ = aet
+
+			if aet.Success == false {
+				log.Printf("[LEADER] Stepping down.\n")
+				raft.currentState.Set(follower)
+				return
+			}
+
 			// END OF MODIFY //
 			///////////////////
 		case rv := <-raft.requestVoteChan:
