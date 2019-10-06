@@ -139,7 +139,7 @@ func (raft *Raft) followerSelect() {
 
 			rv.replyChan <- reply
 			break
-			
+
 			// END OF MODIFY //
 			///////////////////
 
@@ -222,10 +222,39 @@ func (raft *Raft) candidateSelect() {
 				Term: raft.currentTerm,
 			}
 
-			log.Printf("[CANDIDATE] Vote denied to '%v' for term '%v'.\n", raft.peers[rv.CandidateID], raft.currentTerm)
-			reply.VoteGranted = false
+			if rv.Term < raft.currentTerm {
+				log.Printf("[CANDIDATE] Vote denied to '%v' for term '%v'.\n", raft.peers[rv.CandidateID], raft.currentTerm)
+				reply.VoteGranted = false
+				rv.replyChan <- reply
+				break
+			}
+
+			if rv.Term > raft.currentTerm {
+				log.Printf("[CANDIDATE] Update old term '%v' to new term '%v' from '%v'.\n", raft.currentTerm, rv.Term, raft.peers[rv.CandidateID])
+				raft.currentTerm = rv.Term
+				raft.votedFor = 0
+
+				log.Printf("[CANDIDATE] Stepping down.\n")
+				raft.currentState.Set(follower)
+				raft.requestVoteChan <- rv
+				return
+			}
+
+			if (rv.Term == raft.currentTerm) && (raft.votedFor == 0 || raft.votedFor == rv.CandidateID) {
+				raft.votedFor = rv.CandidateID
+				log.Printf("[CANDIDATE] Reseting election timeout.\n")
+				raft.resetElectionTimeout()
+				log.Printf("[CANDIDATE] Vote accepted to '%v' for term '%v'.\n", raft.peers[rv.CandidateID], raft.currentTerm)
+				reply.VoteGranted = true
+
+			} else {
+				log.Printf("[CANDIDATE] Vote denied to '%v' for term '%v'.\n", raft.peers[rv.CandidateID], raft.currentTerm)
+				reply.VoteGranted = false
+			}
+
 			rv.replyChan <- reply
 			break
+			
 			// END OF MODIFY //
 			///////////////////
 
