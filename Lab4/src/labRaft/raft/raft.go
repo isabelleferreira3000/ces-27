@@ -127,7 +127,20 @@ func (raft *Raft) followerSelect() {
 				Term: raft.currentTerm,
 			}
 
-			log.Printf("[FOLLOWER] Accept AppendEntry from '%v'.\n", raft.peers[ae.LeaderID])
+			if ae.Term < raft.currentTerm {
+				log.Printf("[FOLLOWER] Denied AppendEntry from '%v'.\n", raft.peers[ae.LeaderID])
+				reply.Success = false
+				ae.replyChan <- reply
+				break
+			}
+
+			if ae.Term > raft.currentTerm {
+				log.Printf("[FOLLOWER] Accept AppendEntry from '%v'.\n", raft.peers[ae.LeaderID])
+				raft.currentTerm = ae.Term
+				raft.votedFor = 0
+			}
+
+			raft.resetElectionTimeout()
 			reply.Success = true
 			ae.replyChan <- reply
 			break
