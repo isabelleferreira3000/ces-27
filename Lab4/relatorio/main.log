@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  7 OCT 2019 11:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  7 OCT 2019 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1037,89 +1037,95 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 91.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 91.
+LaTeX Font Info:    Try loading font information for U+msa on input line 96.
 
-<imagens/funcionamento_normal.png, id=60, 1305.87875pt x 748.7975pt>
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 96.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<imagens/funcionamento_normal.png, id=61, 1305.87875pt x 748.7975pt>
 File: imagens/funcionamento_normal.png Graphic file (type png)
 
 <use imagens/funcionamento_normal.png>
-Package pdftex.def Info: imagens/funcionamento_normal.png used on input line 96
-.
+Package pdftex.def Info: imagens/funcionamento_normal.png used on input line 11
+0.
 (pdftex.def)             Requested size: 522.34225pt x 299.51369pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 100.
+(babel)             in language  on input line 114.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 100.
+(babel)             in language  on input line 114.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <imagens/falha_no_lider
-.png, id=69, 1305.87875pt x 747.79375pt>
+.png, id=72, 1305.87875pt x 747.79375pt>
 File: imagens/falha_no_lider.png Graphic file (type png)
 
 <use imagens/falha_no_lider.png>
-Package pdftex.def Info: imagens/falha_no_lider.png used on input line 103.
+Package pdftex.def Info: imagens/falha_no_lider.png used on input line 117.
 (pdftex.def)             Requested size: 522.34225pt x 299.1122pt.
 
-<imagens/1_falha.png, id=70, 1304.875pt x 748.7975pt>
+<imagens/1_falha.png, id=73, 1304.875pt x 748.7975pt>
 File: imagens/1_falha.png Graphic file (type png)
 
 <use imagens/1_falha.png>
-Package pdftex.def Info: imagens/1_falha.png used on input line 110.
+Package pdftex.def Info: imagens/1_falha.png used on input line 124.
 (pdftex.def)             Requested size: 521.94077pt x 299.51369pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 114.
+(babel)             in language  on input line 128.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 114.
+(babel)             in language  on input line 128.
  [2 <./imagens/funcionamento_normal.png> <./imagens/falha_no_lider.png>] <image
-ns/2_falhas.png, id=77, 1303.87125pt x 750.805pt>
+ns/2_falhas.png, id=79, 1303.87125pt x 750.805pt>
 File: imagens/2_falhas.png Graphic file (type png)
 
 <use imagens/2_falhas.png>
-Package pdftex.def Info: imagens/2_falhas.png used on input line 117.
+Package pdftex.def Info: imagens/2_falhas.png used on input line 131.
 (pdftex.def)             Requested size: 521.53926pt x 300.31668pt.
 
-<imagens/3_falhas.png, id=78, 1303.87125pt x 748.7975pt>
+<imagens/3_falhas.png, id=80, 1303.87125pt x 748.7975pt>
 File: imagens/3_falhas.png Graphic file (type png)
 
 <use imagens/3_falhas.png>
-Package pdftex.def Info: imagens/3_falhas.png used on input line 124.
+Package pdftex.def Info: imagens/3_falhas.png used on input line 138.
 (pdftex.def)             Requested size: 521.53926pt x 299.51369pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 128.
+(babel)             in language  on input line 142.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 128.
+(babel)             in language  on input line 142.
  [3 <./imagens/1_falha.png> <./imagens/2_falhas.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 129.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 143.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 129.
+(babel)             in language  on input line 143.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 129.
+(babel)             in language  on input line 143.
 [4 <./imagens/3_falhas.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 129.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 143.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 129.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 129.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 143.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 143.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: A157F420FD8BDB0D9488536D782451FD;950.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 129.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 143.
  ) 
 Here is how much of TeX's memory you used:
- 10365 strings out of 493029
- 148439 string characters out of 6136235
- 245355 words of memory out of 5000000
- 13734 multiletter control sequences out of 15000+600000
- 108207 words of font info for 106 fonts, out of 8000000 for 9000
+ 10392 strings out of 493029
+ 148894 string characters out of 6136235
+ 247388 words of memory out of 5000000
+ 13748 multiletter control sequences out of 15000+600000
+ 109906 words of font info for 114 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 29i,7n,40p,270b,338s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,7n,40p,270b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmri8a.pfb>
-Output written on main.pdf (4 pages, 1301945 bytes).
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
+mri8a.pfb>
+Output written on main.pdf (4 pages, 1310781 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  24 named destinations out of 1000 (max. 500000)
  138 words of extra memory for PDF output out of 10000 (max. 10000000)
 
