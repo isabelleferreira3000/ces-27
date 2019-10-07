@@ -112,6 +112,16 @@ Na Figura \ref{funcionamento_normal}, foi apresentado uma captura de tela de um 
 \label{funcionamento_normal}
 \end{figure}
 
+Na Figura \ref{falha_no_lider}, foi apresentado uma captura de tela de um funcionamento com falha do líder (com outro assumindo a liderança) e retomada do servidor falho (com ele reconhecendo a liderança do outro).
+
+\begin{itemize}
+\item Server 3 (\textit{leader}) falha
+\item Server 2 vira \textit{candidate}
+\item Server 2 recebe voto de 1, 4 e 5 (e vira \textit{leader})
+\item Server 3 é retomado e recebe \textit{AppendEntry} de 2 (que é o novo \textit{leader}) \textit{leader}
+
+\end{itemize}
+
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.4]{imagens/falha_no_lider.png}}
