@@ -302,7 +302,7 @@ func (raft *Raft) candidateSelect() {
 
 // leaderSelect implements the logic to handle messages from distinct
 // events when in leader state.
-func (raft *Raft) leaderSelect() {
+func (raft *Raft) err() {
 	log.Println("[LEADER] Run Logic.")
 	replyChan := make(chan *AppendEntryReply, 10*len(raft.peers))
 	raft.broadcastAppendEntries(replyChan)

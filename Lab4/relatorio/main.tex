@@ -67,26 +67,205 @@ Raft, Golang, sistema distribuído
 
 \section{Implementação}
 
-\subsection{Ao receber um AppendEntry (heartbeat)}
-Subsection text here.
+Os códigos implementados seguiram fielmente os pseudo-códigos sugeridos no roteiro do laboratório. Abaixo estão apresentadas as alterações feitas pela aluna. Embora estejam no código do laboratório, não foram apresentados os \textit{prints} de debug, a fim de tornar os códigos abaixos mais "limpos", não prejudicando a lógica implementada.
 
-\subsubsection{Follower}
-\subsubsection{Candidate}
-\subsubsection{Leader}
+\subsection{Ao receber um AppendEntry (heartbeat)}
+
+\subsubsection{Follower} Código bastante similar ao pseudo-códico:
+
+\begin{lstlisting}
+func (raft *Raft) followerSelect() {
+	// [...]
+
+	case ae := <-raft.appendEntryChan:
+
+		reply := &AppendEntryReply{
+			Term: raft.currentTerm,
+		}
+
+		if ae.Term < raft.currentTerm {
+			reply.Success = false
+			ae.replyChan <- reply
+			return
+		}
+
+		if ae.Term > raft.currentTerm {
+			raft.currentTerm = ae.Term
+			raft.votedFor = 0
+		}
+
+		raft.resetElectionTimeout()
+		reply.Success = true
+		ae.replyChan <- reply
+		return
+
+	// [...]
+}
+\end{lstlisting}
+
+\subsubsection{Candidate} Código bastante similar ao pseudo-códico:
+
+\begin{lstlisting}
+func (raft *Raft) candidateSelect() {
+	// [...]
+
+	case ae := <-raft.appendEntryChan:
+	
+		reply := &AppendEntryReply{
+			Term: raft.currentTerm,
+		}
+
+		if ae.Term < raft.currentTerm {
+			reply.Success = false
+			ae.replyChan <- reply
+			return
+		}
+
+		if ae.Term > raft.currentTerm {
+			raft.currentTerm = ae.Term
+			raft.votedFor = 0
+		}
+
+		reply.Success = true
+		ae.replyChan <- reply
+
+		raft.currentState.Set(follower)
+		raft.appendEntryChan <- ae
+		return
+
+	// [...]
+}
+\end{lstlisting}
+
+\subsubsection{Leader} idem \textit{candidate}.
 
 \subsection{Ao receber um RequestVote}
-Subsubsection text here.
 
-\subsubsection{Follower}
-\subsubsection{Candidate}
-\subsubsection{Leader}
+\subsubsection{Follower} Código bastante similar ao pseudo-códico:
+
+\begin{lstlisting}
+func (raft *Raft) followerSelect() {
+	// [...]
+
+	case rv := <-raft.requestVoteChan:
+		
+		reply := &RequestVoteReply{
+			Term: raft.currentTerm,
+		}
+
+		if rv.Term < raft.currentTerm {
+			reply.VoteGranted = false
+			rv.replyChan <- reply
+			return
+		}
+
+		if rv.Term > raft.currentTerm {
+			raft.currentTerm = rv.Term
+			raft.votedFor = 0
+		}
+
+		if (rv.Term == raft.currentTerm) && (raft.votedFor == 0 || raft.votedFor == rv.CandidateID) {
+			raft.votedFor = rv.CandidateID
+			raft.resetElectionTimeout()
+			reply.VoteGranted = true
+
+		} else {
+			reply.VoteGranted = false
+		}
+
+		rv.replyChan <- reply
+		return
+
+	// [...]
+}
+\end{lstlisting}
+
+\subsubsection{Candidate} Código bastante similar ao pseudo-códico:
+
+\begin{lstlisting}
+func (raft *Raft) candidateSelect() {
+	// [...]
+
+	case rv := <-raft.requestVoteChan:
+	
+		reply := &RequestVoteReply{
+			Term: raft.currentTerm,
+		}
+
+		if rv.Term < raft.currentTerm {
+			reply.VoteGranted = false
+			rv.replyChan <- reply
+			return
+		}
+
+		if rv.Term > raft.currentTerm {
+			raft.currentTerm = rv.Term
+			raft.votedFor = 0
+
+			raft.currentState.Set(follower)
+			raft.requestVoteChan <- rv
+			return
+		}
+
+		if (rv.Term == raft.currentTerm) && (raft.votedFor == 0 || raft.votedFor == rv.CandidateID) {
+			raft.votedFor = rv.CandidateID
+			raft.resetElectionTimeout()
+			reply.VoteGranted = true
+
+		} else {
+			reply.VoteGranted = false
+		}
+
+		rv.replyChan <- reply
+		return
+
+	// [...]
+}
+\end{lstlisting}
+
+\subsubsection{Leader} idem \textit{candidate}.
 
 \subsection{Ao receber um Reply}
-Subsubsection text here.
 
-\subsubsection{Follower}
-\subsubsection{Candidate}
-\subsubsection{Leader}
+\subsubsection{Candidate} Caso os votos sejam de mais que a maioria dos servers, \textit{cadidate} vira \textit{leader}.
+
+\begin{lstlisting}
+func (raft *Raft) candidateSelect() {
+	// [...]
+
+	case rvr := <-replyChan:
+
+		if rvr.VoteGranted {
+			voteCount++
+		}
+
+		if voteCount > len(raft.peers)/2 {
+			raft.currentState.Set(leader)
+			return
+		}
+
+	// [...]
+}
+\end{lstlisting}
+
+\subsubsection{Leader} Caso \textit{leader} receba resposta falso para o AppendEntry, faz \textit{step down}.
+
+\begin{lstlisting}
+func (raft *Raft) leaderSelect() {
+	// [...]
+
+	case aet := <-replyChan:
+
+		if aet.Success == false {
+			raft.currentState.Set(follower)
+			return
+		}
+
+	// [...]
+
+}
+\end{lstlisting}
+
 
 \section{Resultados e Conclusões}
 
@@ -186,5 +365,7 @@ Na Figura \ref{3_falhas}, foi apresentado uma captura de tela de um funcionament
 \caption{Funcionamento após a falha no terceiro \textit{leader}. Note que o sistema não consegue mais decidir por um novo \textit{leader}.}.
 \label{3_falhas}
 \end{figure}
+
+Uma vez que os resultados saíram conforme o esperado, tem-se que o laboratório foi implementado corretamente.
 
 \end{document}
