@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  7 OCT 2019 13:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.6)  7 OCT 2019 14:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1070,47 +1070,56 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 131.
  [2 <./imagens/funcionamento_normal.png>]
-<imagens/1_falha.png, id=79, 1304.875pt x 748.7975pt>
+<imagens/1_falha.png, id=80, 1304.875pt x 748.7975pt>
 File: imagens/1_falha.png Graphic file (type png)
 
 <use imagens/1_falha.png>
-Package pdftex.def Info: imagens/1_falha.png used on input line 134.
+Package pdftex.def Info: imagens/1_falha.png used on input line 143.
 (pdftex.def)             Requested size: 521.94077pt x 299.51369pt.
-
-<imagens/2_falhas.png, id=80, 1303.87125pt x 750.805pt>
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 147.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 147.
+ [3 <./imagens/falha_no_lider.png>]
+<imagens/2_falhas.png, id=87, 1303.87125pt x 750.805pt>
 File: imagens/2_falhas.png Graphic file (type png)
 
 <use imagens/2_falhas.png>
-Package pdftex.def Info: imagens/2_falhas.png used on input line 141.
+Package pdftex.def Info: imagens/2_falhas.png used on input line 162.
 (pdftex.def)             Requested size: 521.53926pt x 300.31668pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 145.
+(babel)             in language  on input line 166.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 145.
- [3 <./imagens/falha_no_lider.png> <./imagens/1_falha.png>] <imagens/3_falhas.p
-ng, id=86, 1303.87125pt x 748.7975pt>
+(babel)             in language  on input line 166.
+ [4 <./imagens/1_falha.png>]
+<imagens/3_falhas.png, id=94, 1303.87125pt x 748.7975pt>
 File: imagens/3_falhas.png Graphic file (type png)
 
 <use imagens/3_falhas.png>
-Package pdftex.def Info: imagens/3_falhas.png used on input line 148.
+Package pdftex.def Info: imagens/3_falhas.png used on input line 185.
 (pdftex.def)             Requested size: 521.53926pt x 299.51369pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 153.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 153.
+(babel)             in language  on input line 189.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 153.
- [4 <./imagens/2_falhas.png> <./imagens/3_falhas.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 153.
+(babel)             in language  on input line 189.
+ [5 <./imagens/2_falhas.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 190.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 190.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 190.
+ [6 <./imagens/3_falhas.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 190.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 153.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 153.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 190.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 190.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: A157F420FD8BDB0D9488536D782451FD;950.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 153.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 190.
  ) 
 Here is how much of TeX's memory you used:
- 10392 strings out of 493029
- 148894 string characters out of 6136235
+ 10394 strings out of 493029
+ 148906 string characters out of 6136235
  247388 words of memory out of 5000000
  13748 multiletter control sequences out of 15000+600000
  109906 words of font info for 114 fonts, out of 8000000 for 9000
@@ -1121,10 +1130,10 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on main.pdf (4 pages, 1311371 bytes).
+Output written on main.pdf (6 pages, 1313946 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
- 24 named destinations out of 1000 (max. 500000)
+ 128 PDF objects out of 1000 (max. 8388607)
+ 109 compressed objects within 2 object streams
+ 26 named destinations out of 1000 (max. 500000)
  138 words of extra memory for PDF output out of 10000 (max. 10000000)
 

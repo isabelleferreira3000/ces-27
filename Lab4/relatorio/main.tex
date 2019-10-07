@@ -112,14 +112,14 @@ Na Figura \ref{funcionamento_normal}, foi apresentado uma captura de tela de um 
 \label{funcionamento_normal}
 \end{figure}
 
-Na Figura \ref{falha_no_lider}, foi apresentado uma captura de tela de um funcionamento com falha do líder (com outro assumindo a liderança) e retomada do servidor falho (com ele reconhecendo a liderança do outro).
+Na Figura \ref{falha_no_lider}, foi apresentado uma captura de tela de um funcionamento com falha do \textit{leader} (com outra instância assumindo a liderança) e retomada do servidor falho (com ele reconhecendo a liderança do outro).
 
 \begin{itemize}
 \item Server 3 (\textit{leader}) falha
 \item Server 2 vira \textit{candidate}
-\item Server 2 recebe voto de 1, 4 e 5 (e vira \textit{leader})
-\item Server 3 é retomado e recebe \textit{AppendEntry} de 2 (que é o novo \textit{leader}) \textit{leader}
-
+\item Server 2 recebe voto de 1 e 5 (e vira \textit{leader}), e de 4
+\item Server 3 é retomado e recebe \textit{AppendEntry} de 2 (que é o novo \textit{leader})
+\item Server 1, 3, 4 e 5 continuam como \textit{follower} indefinidamente, pois 2 é \textit{leader}
 \end{itemize}
 
 \begin{figure}[H]
@@ -129,6 +129,15 @@ Na Figura \ref{falha_no_lider}, foi apresentado uma captura de tela de um funcio
 \label{falha_no_lider}
 \end{figure}
 
+Na Figura \ref{1_falha}, foi apresentado uma captura de tela de um funcionamento com falha de uma instância (o \textit{leader}), agora sem retomada do servidor falho. Note que outro servidor assume a liderança.
+
+\begin{itemize}
+\item Server 1 (leader) falha
+\item Server 3 vira \textit{candidate}
+\item Server 3 recebe voto de 4 e 2 (e vira \textit{leader}), e de 3 e 5
+\item Server 2, 4 e 5 continuam como \textit{follower}, pois 3 é \textit{leader}
+\end{itemize}
+
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.4]{imagens/1_falha.png}}
@@ -136,12 +145,40 @@ Na Figura \ref{falha_no_lider}, foi apresentado uma captura de tela de um funcio
 \label{1_falha}
 \end{figure}
 
+Na Figura \ref{2_falhas}, foi apresentado uma captura de tela de um funcionamento com falha de duas instâncias, também sem retomadas dos servidores falhos. Note que outro servidor assume a liderança.
+
+\begin{itemize}
+\item Server 1 (\textit{leader}) falha
+\item Server 3 vira \textit{candidate}
+\item Server 3 recebe voto de 4 e 2 (e vira \textit{leader})
+\item Server 3 (\textit{leader}) falha
+\item Server 4 vira \textit{candidate}
+\item Server 4 recebe voto de 2 e 5 (e vira \textit{leader})
+\item Server 5 continua como \textit{follower}, pois 4 é \textit{leader}
+\end{itemize}
+
 \begin{figure}[H]
 \centering
 \centerline{\includegraphics[scale=0.4]{imagens/2_falhas.png}}
 \caption{Funcionamento após a falha no próximo \textit{leader}.}.
 \label{2_falhas}
 \end{figure}
+
+Na Figura \ref{3_falhas}, foi apresentado uma captura de tela de um funcionamento com falha de três instâncias, também sem retomadas dos servidores falhos. Note que o sistema não consegue mais decidir por um novo \textit{leader}.
+
+\begin{itemize}
+\item Server 1 (\textit{leader}) falha
+\item Server 5 vida \textit{candidate}
+\item Server 5 recebe voto de 3 e 4 (e vira \textit{leader}), e de 2
+\item Server 5 (\textit{leader}) falha
+\item Server 3 vira \textit{candidate}
+\item Server 3 recebe voto de 4 e 2 (e vira \textit{leader})
+\item Server 3 (\textit{leader}) falha
+\item Server 4 vira \textit{candidate}
+\item Server 4 recebe voto de 2
+\item Server 4 não virará \textit{leader}, pois só teve 2 votos (o de 2 e o dele mesmo)
+\item Server 2 continua indefinidamente como \textit{follower} (sem nenhum \textit{leader})
+\end{itemize}
 
 \begin{figure}[H]
 \centering
